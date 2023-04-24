@@ -1,0 +1,73 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orderingapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/ordering-api/{everything}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shippingapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/shipping-api/{everything}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "paymentapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/payment-api/{everything}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "customerapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/customer-api/{everything}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "inventoryapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/inventory-api/{everything}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "geolocationapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/geolocation-api/{everything}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:8000"
+  }
+}
