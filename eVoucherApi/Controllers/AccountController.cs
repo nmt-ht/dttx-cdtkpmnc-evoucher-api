@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eVoucher.Server.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly ILogger<AccountController> _logger;
@@ -15,7 +15,7 @@ namespace eVoucher.Server.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Account> Get()
+        public IEnumerable<Account> GetAccounts()
         {
             return new List<Account>();
         }
