@@ -1,5 +1,9 @@
 ﻿using Autofac;
+using AutoMapper;
+using eVoucher.Service.AutoMappings;
+using eVoucherApi.Handlers;
 using eVoucherApi.Infrastructure.AutofacModules;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -21,6 +25,9 @@ namespace eVoucherApi
             services.AddCors();
             services.AddOptions();
 
+            services.AddAutoMapper(typeof(UserProfile));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
             services.AddRouting(options => options.LowercaseUrls = true);
 
             services.AddSwaggerGen(c =>
@@ -33,7 +40,9 @@ namespace eVoucherApi
 
             services.AddApplicationInsightsTelemetry();
 
-            //RegisterErrorHandling(services);
+            services.AddAuthentication("BasicAuthentication")
+               .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+            services.AddAuthorization();
         }
         public void ConfigureContainer(ContainerBuilder builder)
         {
@@ -74,11 +83,9 @@ namespace eVoucherApi
 
                 c.DefaultModelsExpandDepth(-1);
             });
-        }
 
-        //private void RegisterErrorHandling(IServiceCollection services)
-        //{
-        //    services.AddTransient<IMailing, EmailHandler>();
-        //}
+            app.UseAuthentication(); 
+            app.UseAuthorization();
+        }
     }
 }

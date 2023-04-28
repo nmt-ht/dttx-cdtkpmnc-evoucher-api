@@ -1,0 +1,18 @@
+﻿using eVoucher.Domain.SeekWork;
+using System;
+
+namespace eVoucher.Domain.Models
+{
+    public class User : Entity
+    {
+        public virtual string FirstName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual DateTime DateOfBirth { get; set; }
+        public virtual string EmailAddress { get; set; }
+        public virtual string Phone { get; set; }
+        public virtual string UserName { get; set; }
+        public virtual string Password { get; set; }
+        public virtual bool IsActive { get; set; }
+        public virtual Address Address { get; set; }
+    }
+}

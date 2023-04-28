@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using eVoucherApi.Commands.Accounts;
+using eVoucher.Services.Api.Application.Queries;
 
 namespace eVoucherApi.Infrastructure.AutofacModules
 {
@@ -14,7 +14,7 @@ namespace eVoucherApi.Infrastructure.AutofacModules
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new AccountQueries(QueriesConnectionString)).As<IAccountQueries>().InstancePerLifetimeScope();
+            builder.Register(c => new UserQueries(QueriesConnectionString)).As<IUserQueries>().InstancePerLifetimeScope();
         }
     }
 }
