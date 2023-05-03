@@ -24,10 +24,5 @@
 	        fifty = 3,
 	        onhundered = 4
         }
-
-
-
     }
-
-
 }

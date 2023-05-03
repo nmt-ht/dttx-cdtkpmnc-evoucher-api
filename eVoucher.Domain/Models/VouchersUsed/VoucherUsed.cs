@@ -1,9 +1,4 @@
 ﻿using eVoucher.Domain.SeekWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace eVoucher.Domain.Models
 {
@@ -12,7 +7,5 @@ namespace eVoucher.Domain.Models
         public virtual DateTime ReceivedDate { get; set; }
         public virtual bool IsUsed { get; set; }
         public virtual DateTime UsedDate { get; set; }
-        
-        
     }
 }

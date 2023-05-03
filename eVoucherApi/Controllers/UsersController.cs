@@ -1,5 +1,8 @@
+using eVoucher.Service.Dtos;
 using eVoucher.Services.Api.Application.Queries;
+using eVoucherApi.Application.Commands;
 using eVoucherApi.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eVoucher.Server.Controllers
@@ -10,14 +13,17 @@ namespace eVoucher.Server.Controllers
     {
         private readonly ILogger<UsersController> _logger;
         private IUserQueries _UserQueries;
-        public UsersController(ILogger<UsersController> logger, IUserQueries UserQueries)
+        private readonly IMediator _mediator;
+
+        public UsersController(ILogger<UsersController> logger, IUserQueries UserQueries, IMediator mediator)
         {
             _logger = logger;
             _UserQueries = UserQueries;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers([FromQuery] Guid id = default)
+        public async Task<ActionResult> GetUsers([FromQuery] Guid id = default)
         {
             try
             {
@@ -30,6 +36,23 @@ namespace eVoucher.Server.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("eVoucher API_Users Controller_Exception: " + ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpPost("create")]
+        public async Task<ActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+        {
+            try
+            {
+                var command = new CreateUserCommand(createUserDto);
+                var result = await _mediator.Send(command);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("User API_User Controller_CreateUser - Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
         }

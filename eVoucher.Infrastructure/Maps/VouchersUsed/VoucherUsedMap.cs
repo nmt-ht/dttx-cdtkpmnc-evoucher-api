@@ -1,9 +1,4 @@
 ﻿using eVoucher.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace eVoucher.Infrastructure.Maps
 {
@@ -16,7 +11,6 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.ReceivedDate);
             Map(p => p.IsUsed);
             Map(p => p.UsedDate);
-           
         }
     }
 }

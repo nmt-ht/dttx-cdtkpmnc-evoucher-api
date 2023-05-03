@@ -22,7 +22,17 @@ namespace eVoucherApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin",
+                      o =>
+                      {
+                          o.AllowAnyMethod()
+                            .AllowCredentials()
+                            .SetIsOriginAllowed((host) => true)
+                            .AllowAnyHeader();
+                      });
+            });
             services.AddOptions();
 
             services.AddAutoMapper(typeof(UserProfile));
@@ -59,16 +69,14 @@ namespace eVoucherApi
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
+            app.UseCors("AllowAnyOrigin");
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
-
-            app.UseCors(builder => {
-                builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
             });
 
             app.UseSwagger(s =>
@@ -83,9 +91,6 @@ namespace eVoucherApi
 
                 c.DefaultModelsExpandDepth(-1);
             });
-
-            app.UseAuthentication(); 
-            app.UseAuthorization();
         }
     }
 }

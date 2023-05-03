@@ -1,9 +1,4 @@
 ﻿using eVoucher.Domain.SeekWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static eVoucher.Domain.Models.DataType;
 
 namespace eVoucher.Domain.Models
@@ -16,7 +11,7 @@ namespace eVoucher.Domain.Models
         public virtual DateTime AppliedDate { get; set; }
         public virtual DateTime ExpiredDate { get; set; }
         public virtual eVoucherType Type { get; set; }
-        public virtual Decimal LimitAmount { get; set; }
+        public virtual decimal LimitAmount { get; set; }
         public virtual int? Quantity { get; set; }
         public virtual bool IsActive { get; set; }
     }

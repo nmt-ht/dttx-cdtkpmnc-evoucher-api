@@ -9,6 +9,7 @@ namespace eVoucher.Infrastructure.Maps
             Table("CampaignGame");
 
             //Map(p => p.FirstName);
-            
+
+        }
     }
 }

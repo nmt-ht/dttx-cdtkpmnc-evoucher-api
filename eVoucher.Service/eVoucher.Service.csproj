@@ -16,8 +16,4 @@
 	  <ProjectReference Include="..\eVoucher.Infrastructure\eVoucher.Infrastructure.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Dtos\Users\" />
-	</ItemGroup>
-
 </Project>

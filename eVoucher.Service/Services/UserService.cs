@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eVoucher.Infrastructure.Reposistories;
+using eVoucher.Service.Dtos;
 
 namespace eVoucher.Service.Serivces
 {
@@ -14,12 +15,12 @@ namespace eVoucher.Service.Serivces
             _mapper = mapper;
         }
 
-        public bool DeleteUser()
+        public async Task<bool> DeleteUser(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public bool UpdateUser()
+        public async Task<bool> UpdateUser(CreateUserDto createUserDto)
         {
             throw new NotImplementedException();
         }
