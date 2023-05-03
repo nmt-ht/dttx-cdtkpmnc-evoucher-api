@@ -8,5 +8,26 @@
             BillTo = 1,
             BillToShipTo = 2
         }
+
+        public enum ePartnerType
+        {
+            Food = 0,
+            Drink = 1,
+            Technology = 2
+        }
+
+        public enum eVoucherType
+        {
+	        ten = 0,
+	        twenty = 1,
+	        thirty = 2,
+	        fifty = 3,
+	        onhundered = 4
+        }
+
+
+
     }
+
+
 }
