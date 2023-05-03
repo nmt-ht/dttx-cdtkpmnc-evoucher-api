@@ -8,15 +8,13 @@ namespace eVoucher.Infrastructure.Maps
         public CampaignUserMap()
         {
             Table("CampaignUser");
+            Map(p => p.JoinDate);          
 
-            Map(p => p.JoinDate);
-           
-
-            HasMany<Campaign>(p => p.Campaign_ID)
+            HasMany<Campaign>(p => p.Campaigns)
                    .Table("Campaign")
                    .KeyColumn("Campaign_ID")
                    .Cascade.AllDeleteOrphan();
-            HasMany<User>(p => p.User_ID)
+            HasMany<User>(p => p.Users)
                    .Table("User")
                    .KeyColumn("User_ID")
                    .Cascade.AllDeleteOrphan();
