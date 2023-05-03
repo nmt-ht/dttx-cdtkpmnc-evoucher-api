@@ -5,10 +5,10 @@ namespace eVoucherApi.Application.Commands
 {
     public class CreateUserCommand : IRequest<bool>
     {
-        public CreateUserDto CreateUserDto { get; set; }
-        public CreateUserCommand(CreateUserDto dto)
+        public UserDto UserDto { get; set; }
+        public CreateUserCommand(UserDto dto)
         {
-            CreateUserDto = dto;
+            UserDto = dto;
         }
     }
 }

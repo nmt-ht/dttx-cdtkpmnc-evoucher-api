@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
+using eVoucher.Domain.Models;
+using eVoucher.Service.Dtos;
 
 namespace eVoucher.Service.AutoMappings
 {
-    public class UserProfile : Profile
+    public class eVourcherProfile : Profile
     {
-        public UserProfile()
+        public eVourcherProfile()
         {
-            //CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>();
+            CreateMap<Address, AddressDto>();
         }
     }
 }

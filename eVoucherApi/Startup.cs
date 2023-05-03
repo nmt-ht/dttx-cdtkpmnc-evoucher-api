@@ -4,6 +4,7 @@ using eVoucher.Service.AutoMappings;
 using eVoucherApi.Handlers;
 using eVoucherApi.Infrastructure.AutofacModules;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -35,7 +36,7 @@ namespace eVoucherApi
             });
             services.AddOptions();
 
-            services.AddAutoMapper(typeof(UserProfile));
+            services.AddAutoMapper(typeof(eVourcherProfile));
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
             services.AddRouting(options => options.LowercaseUrls = true);

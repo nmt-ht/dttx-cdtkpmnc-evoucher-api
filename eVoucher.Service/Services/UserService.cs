@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using eVoucher.Domain.Models;
 using eVoucher.Infrastructure.Reposistories;
 using eVoucher.Service.Dtos;
+using FluentNHibernate.Utils;
 
 namespace eVoucher.Service.Serivces
 {
@@ -20,9 +22,31 @@ namespace eVoucher.Service.Serivces
             throw new NotImplementedException();
         }
 
-        public async Task<bool> UpdateUser(CreateUserDto createUserDto)
+        public async Task<bool> UpdateUser(UserDto userDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = _domainRepository.GetOne<User>(u => u.Id == userDto.Id);
+
+                if (user is not null) // update
+                {
+                    user = _mapper.Map<User>(userDto);
+                    _domainRepository.Update(user, true);
+                    return true;
+                }// add
+                else
+                {
+                    user = _mapper.Map<User>(userDto);
+                    _domainRepository.Add(user, true);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return true;
         }
     }
 }

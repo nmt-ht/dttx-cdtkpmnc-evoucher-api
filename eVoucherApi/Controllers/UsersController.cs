@@ -41,11 +41,11 @@ namespace eVoucher.Server.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+        public async Task<ActionResult> CreateUser([FromBody] UserDto UserDto)
         {
             try
             {
-                var command = new CreateUserCommand(createUserDto);
+                var command = new CreateUserCommand(UserDto);
                 var result = await _mediator.Send(command);
 
                 return Ok(result);

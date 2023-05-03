@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using eVoucher.Domain.Models;
 
-namespace eVoucher.Infrastructure.Maps
+namespace eVoucher.Infrastructure.Maps;
+
+public class AddressMap : EntityMap<Address>
 {
-    public class AddressMap
+    public AddressMap()
     {
+        Table("[Address]");
+
+        Map(p => p.Street);
+        Map(p => p.District);
+        Map(p => p.City);
+        Map(p => p.Country);
+        Map(p => p.Type).CustomType<int>();
+        Map(p => p.IsDeleted);
     }
 }

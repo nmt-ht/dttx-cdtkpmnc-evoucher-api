@@ -6,7 +6,7 @@ namespace eVoucher.Infrastructure.Maps
     {
         public UserMap()
         {
-            Table("User");
+            Table("[User]");
 
             Map(p => p.FirstName);
             Map(p => p.LastName);
@@ -19,7 +19,7 @@ namespace eVoucher.Infrastructure.Maps
 
 
             HasMany<Address>(p => p.Addresses)
-                   .Table("Address")
+                   .Table("[Address]")
                    .KeyColumn("Address_ID")
                    .Cascade.AllDeleteOrphan();
         }
