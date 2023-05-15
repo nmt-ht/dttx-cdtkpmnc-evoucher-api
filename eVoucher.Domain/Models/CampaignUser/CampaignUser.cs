@@ -4,8 +4,8 @@ namespace eVoucherApi.Domain.Models
 {
     public class CampaignUser : Entity
     {
-        public virtual IList<User>? Users { get; set; }
-        public virtual IList<Campaign>? Campaigns { get; set; }
+        public virtual User User { get; set; }
+        public virtual Campaign Campaign { get; set; }
         public virtual DateTime JoinDate { get; set; }
     }
 }

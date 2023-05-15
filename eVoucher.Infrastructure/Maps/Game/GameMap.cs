@@ -11,11 +11,15 @@ namespace eVoucher.Infrastructure.Maps
 
             Map(p => p.Name);
             Map(p => p.Description);
-            Map(p => p.CreatedBy);
             Map(p => p.CreatedDate);
             Map(p => p.ModifiedDate);
-            Map(p => p.ModifiedBy);
             Map(p => p.IsDeleted);
+
+            References<User>(x => x.CreatedBy)
+             .Column("CreatedBy");
+
+            References<User>(x => x.ModifiedBy)
+                .Column("ModifiedBy");
         }
     }
 }

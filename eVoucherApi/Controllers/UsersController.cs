@@ -45,10 +45,11 @@ namespace eVoucher.Server.Controllers
         {
             try
             {
-                var command = new CreateUserCommand(UserDto);
-                var result = await _mediator.Send(command);
+                //var command = new CreateUserCommand(UserDto);
+                //var result = await _mediator.Send(command);
 
-                return Ok(result);
+                //return Ok(result);
+                return NoContent();
             }
             catch (Exception ex)
             {

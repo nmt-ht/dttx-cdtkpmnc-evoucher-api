@@ -11,6 +11,9 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.ReceivedDate);
             Map(p => p.IsUsed);
             Map(p => p.UsedDate);
+
+            References<User>(x => x.User)
+            .Column("User_ID");
         }
     }
 }

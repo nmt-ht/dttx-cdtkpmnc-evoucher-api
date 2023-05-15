@@ -1,4 +1,5 @@
 ﻿using eVoucher.Domain.Models;
+using eVoucherApi.domain.Models;
 
 namespace eVoucher.Infrastructure.Maps
 {
@@ -8,8 +9,11 @@ namespace eVoucher.Infrastructure.Maps
         {
             Table("CampaignGame");
 
-            //Map(p => p.FirstName);
+            References<Campaign>(x => x.Campaign)
+                .Column("Campaign_ID");
 
+            References<Game>(x => x.Game)
+                .Column("Game_ID");
         }
     }
 }

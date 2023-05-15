@@ -3,7 +3,7 @@ using MediatR;
 
 namespace eVoucherApi.Application.Commands
 {
-    public class CreateUserCommandHandler: IRequestHandler<CreateUserCommand, bool>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
     {
         private readonly IUserService _userService;
 

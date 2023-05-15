@@ -7,5 +7,6 @@ namespace eVoucher.Domain.Models
         public virtual DateTime ReceivedDate { get; set; }
         public virtual bool IsUsed { get; set; }
         public virtual DateTime UsedDate { get; set; }
+        public virtual User User { get; set; }
     }
 }

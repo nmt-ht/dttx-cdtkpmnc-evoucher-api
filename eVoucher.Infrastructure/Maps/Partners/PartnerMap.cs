@@ -14,12 +14,11 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.CompanyPhone);
             Map(p => p.Image);
             Map(p => p.JoinDate);
-            Map(p => p.Type);
+            Map(p => p.Type).CustomType<int>();
             Map(p => p.IsActive);
 
-
             HasMany<Address>(p => p.CompanyAddess)
-                   .Table("Address")
+                   .Table("[Address]")
                    .KeyColumn("Address_ID")
                    .Cascade.AllDeleteOrphan();
         }

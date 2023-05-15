@@ -2,7 +2,6 @@
 using eVoucher.Domain.Models;
 using eVoucher.Infrastructure.Reposistories;
 using eVoucher.Service.Dtos;
-using FluentNHibernate.Utils;
 
 namespace eVoucher.Service.Serivces
 {
@@ -45,8 +44,6 @@ namespace eVoucher.Service.Serivces
             {
                 throw ex;
             }
-
-            return true;
         }
     }
 }

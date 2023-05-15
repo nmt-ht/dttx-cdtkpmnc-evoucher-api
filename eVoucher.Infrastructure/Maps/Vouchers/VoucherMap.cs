@@ -13,7 +13,7 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.CreatedDate);
             Map(p => p.AppliedDate);
             Map(p => p.ExpiredDate);
-            Map(p => p.Type);
+            Map(p => p.Type).CustomType<int>();
             Map(p => p.LimitAmount);
             Map(p => p.Quantity);
             Map(p => p.IsActive);
