@@ -19,7 +19,7 @@ namespace eVoucher.Infrastructure.Maps
 
             HasMany<Address>(p => p.Addresses)
                    .Table("[Address]")
-                   .KeyColumn("ID")
+                   .KeyColumn("UserID")
                    .Cascade.AllDeleteOrphan();
         }
     }

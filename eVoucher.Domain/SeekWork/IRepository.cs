@@ -11,6 +11,7 @@ namespace eVoucher.Domain.SeekWork
         void Update(object entity, bool commit = true);
         void AddOrUpdate(object entity, bool commit = true);
         void Add(object entity, bool commit = true);
+        void Remove(object entity, bool commit = true);
         void CommitChanges();
         object ExecuteScalar(string command, CommandType commandType, params DbParameter[] parameters);
         void ExecuteCommand(string command, CommandType commandType, params object[] parameters);

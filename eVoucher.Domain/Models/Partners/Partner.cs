@@ -14,5 +14,6 @@ namespace eVoucher.Domain.Models
         public virtual DateTime? JoinDate { get; set; }
         public virtual ePartnerType Type { get; set; }
         public virtual bool IsActive { get; set; }
+        public virtual Guid User_ID { get; set;}
     }
 }

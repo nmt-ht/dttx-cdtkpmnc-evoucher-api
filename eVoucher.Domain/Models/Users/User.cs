@@ -1,4 +1,5 @@
 ﻿using eVoucher.Domain.SeekWork;
+using System.Numerics;
 
 namespace eVoucher.Domain.Models
 {

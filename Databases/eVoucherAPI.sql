@@ -31,6 +31,7 @@ CREATE TABLE [dbo].[Address](
 	[Country] [varchar](200) NULL,
 	[Type] [tinyint] NULL,
 	[IsDeleted] [bit] NULL,
+	[UserID] [uniqueidentifier] NULL, 
  CONSTRAINT [PK_Address] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -49,7 +50,7 @@ CREATE TABLE [dbo].[Campaign](
 	[ID] [uniqueidentifier] NOT NULL,
 	[Name] [nvarchar](100) NULL,
 	[Description] [nvarchar](500) NULL,
-	[CreateDate] [datetime] NULL,
+	[CreatedDate] [datetime] NULL,
 	[StartedDate] [datetime] NULL,
 	[ExpiredDate] [datetime] NULL,
 	[ModifiedDate] [datetime] NULL,
@@ -161,7 +162,6 @@ CREATE TABLE [dbo].[User](
 	[Phone] [varchar](12) NULL,
 	[UserName] [varchar](50) NULL,
 	[Password] [varchar](50) NULL,
-	[Addess_ID] [uniqueidentifier] NOT NULL,
 	[IsActive] [bit] NULL,
  CONSTRAINT [PK_User_1] PRIMARY KEY CLUSTERED 
 (

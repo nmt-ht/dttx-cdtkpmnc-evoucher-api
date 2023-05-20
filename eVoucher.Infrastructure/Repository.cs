@@ -25,6 +25,15 @@ namespace eVoucher.Infrastructure
                 this.CommitChanges();
             }
         }
+        public void Remove(object entity, bool commit = true)
+        {
+            this._session.Delete(entity);
+
+            if (commit)
+            {
+                this.CommitChanges();
+            }
+        }
         public void Update(object entity, bool commit = true)
         {
             if (this._session.Contains(entity))
@@ -63,7 +72,7 @@ namespace eVoucher.Infrastructure
                 if (this._session.Transaction.IsActive)
                 {
                     this._session.Transaction.Commit();
-                }
+                }                
             }
             catch
             {

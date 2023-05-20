@@ -1,12 +1,12 @@
-﻿using eVoucher.Domain.Models;
+﻿using eVoucher.Service.Dtos;
 using MediatR;
 
 namespace eVoucherApi.Application.Commands
 {
-    public class GetCampaignCommand : IRequest<Campaign>
+    public class DeleteCampaignCommand : IRequest<bool>
     {
         public Guid Id { get; set; }
-        public GetCampaignCommand(Guid id)
+        public DeleteCampaignCommand(Guid id)
         {
             Id = id;
         }

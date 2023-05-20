@@ -5,31 +5,32 @@ using eVoucher.Service.Dtos;
 
 namespace eVoucher.Service.Serivces
 {
-    public class UserService : IUserService
+    public class PartnerService : IPartnerService
     {
         private readonly IDomainRepository _domainRepository;
         private readonly IMapper _mapper;
 
-        public UserService(IDomainRepository domainRepository, IMapper mapper)
+        public PartnerService(IDomainRepository domainRepository, IMapper mapper)
         {
             _domainRepository = domainRepository;
             _mapper = mapper;
         }
 
-        public User GetUserById(Guid id)
+        public Partner GetPartnerById(Guid id)
         {
-            var user = _domainRepository.GetOne<User>(c => c.Id == id);
-            return user;
+            var Partner = _domainRepository.GetOne<Partner>(c => c.Id == id);
+            return Partner;
         }
-        public async Task<bool> DeleteUser(Guid id)
+
+        public async Task<bool> DeletePartner(Guid id)
         {
             try
             {
-                var user = _domainRepository.GetOne<User>(u => u.Id == id);
+                var Partner = _domainRepository.GetOne<Partner>(u => u.Id == id);
 
-                if (user is not null) // delete 
+                if (Partner is not null) // delete 
                 {
-                    _domainRepository.Remove(user, true);
+                    _domainRepository.Remove(Partner, true);
                     return true;
                 }
                 else
@@ -43,22 +44,22 @@ namespace eVoucher.Service.Serivces
             }
         }
 
-        public async Task<bool> UpdateUser(UserDto userDto)
+        public async Task<bool> UpdatePartner(PartnerDto PartnerDto)
         {
             try
             {
-                var user = _domainRepository.GetOne<User>(u => u.Id == userDto.Id);
+                var Partner = _domainRepository.GetOne<Partner>(u => u.Id == PartnerDto.Id);
 
-                if (user is not null) // update
+                if (Partner is not null) // update
                 {
-                    user = _mapper.Map<User>(userDto);
-                    _domainRepository.Update(user, true);
+                    Partner = _mapper.Map<Partner>(PartnerDto);
+                    _domainRepository.Update(Partner, true);
                     return true;
                 }// add
                 else
                 {
-                    user = _mapper.Map<User>(userDto);
-                    _domainRepository.Add(user, true);
+                    Partner = _mapper.Map<Partner>(PartnerDto);
+                    _domainRepository.Add(Partner, true);
                     return true;
                 }
             }

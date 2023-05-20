@@ -3,10 +3,10 @@ using MediatR;
 
 namespace eVoucherApi.Application.Commands
 {
-    public class GetCampaignCommand : IRequest<Campaign>
+    public class GetUserCommand : IRequest<User>
     {
         public Guid Id { get; set; }
-        public GetCampaignCommand(Guid id)
+        public GetUserCommand(Guid id)
         {
             Id = id;
         }

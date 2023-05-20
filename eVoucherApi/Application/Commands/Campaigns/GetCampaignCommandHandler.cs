@@ -2,7 +2,7 @@
 using eVoucher.Service.Serivces;
 using MediatR;
 
-namespace eVoucherApi.Application.Commands.Campaigns
+namespace eVoucherApi.Application.Commands
 {
     public class GetCampaignCommandHandler: IRequestHandler<GetCampaignCommand, Campaign>
     {

@@ -1,6 +1,6 @@
 ﻿namespace eVoucherApi.Models
 {
-    public class CampaignDto
+    public class Campaign
     {
         public Guid ID { get; set; }
         public string? Name { get; set; }

@@ -10,6 +10,12 @@ namespace eVoucher.Service.AutoMappings
         {
             CreateMap<User, UserDto>();
             CreateMap<Address, AddressDto>();
+            CreateMap<Campaign, CampaignDto>();
+            CreateMap<Partner, PartnerDto>();
+            CreateMap<UserDto, User>();
+            CreateMap<AddressDto, Address>();
+            CreateMap<CampaignDto, Campaign>();
+            CreateMap<PartnerDto, Partner>();
         }
     }
 }

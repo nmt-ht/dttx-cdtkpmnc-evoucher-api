@@ -4,18 +4,18 @@ using System.Data;
 using System.Data.SqlClient;
 
 namespace eVoucher.Services.Api.Application.Queries;
-public class CampaignQueries: ICampaignQueries
+public class PartnerQueries: IPartnerQueries
 {
     private string _connectionString;
 
-    public CampaignQueries(string connectionString)
+    public PartnerQueries(string connectionString)
     {
         _connectionString = connectionString;
     }
 
-    public async Task<IList<Campaign>> GetCampaigns()
+    public async Task<IList<Partner>> GetPartners()
     {
-        var campaigns = new List<Campaign>();
+        var Partners = new List<Partner>();
 
         using (var connection = new SqlConnection(_connectionString))
         {
@@ -23,10 +23,10 @@ public class CampaignQueries: ICampaignQueries
 
             var parameters = new DynamicParameters();
 
-            var result = await connection.QueryAsync<Campaign>(@"spr_eVoucherApi_GetCampaigns", commandType: CommandType.StoredProcedure);
-            campaigns = result.AsList<Campaign>();
+            var result = await connection.QueryAsync<Partner>(@"spr_eVoucherApi_GetPartners", commandType: CommandType.StoredProcedure);
+            Partners = result.AsList<Partner>();
         }
 
-        return campaigns;
+        return Partners;
     }
 }
