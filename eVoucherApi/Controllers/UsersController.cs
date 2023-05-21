@@ -22,7 +22,7 @@ namespace eVoucher.Server.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("users")]
+        [HttpGet]
         public async Task<ActionResult> GetUsers()
         {
             try
@@ -40,7 +40,7 @@ namespace eVoucher.Server.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult> GetUser([FromQuery] Guid id = default)
         {
             try

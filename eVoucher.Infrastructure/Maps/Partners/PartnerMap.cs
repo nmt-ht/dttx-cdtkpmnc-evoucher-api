@@ -16,12 +16,9 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.JoinDate);
             Map(p => p.Type).CustomType<int>();
             Map(p => p.IsActive);
-            Map(p => p.User_ID);
 
-            //HasMany<Address>(p => p.CompanyAddess)
-            //       .Table("[Address]")
-            //       .KeyColumn("Address_ID")
-            //       .Cascade.AllDeleteOrphan();
+            References<User>(x => x.User)
+               .Column("User_ID_FK");
         }
     }
 }

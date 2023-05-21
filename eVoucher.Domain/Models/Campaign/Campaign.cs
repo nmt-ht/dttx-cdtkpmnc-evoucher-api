@@ -11,7 +11,7 @@ namespace eVoucher.Domain.Models
         public virtual DateTime ExpiredDate { get; set; }
         public virtual DateTime ModifiedDate { get; set; }
         public virtual User ModifiedBy { get; set; }
-        public virtual bool IsDeleted { get; set; }
         public virtual User CreatedBy { get; set; }
+        public virtual bool IsDeleted { get; set; }
     }
 }

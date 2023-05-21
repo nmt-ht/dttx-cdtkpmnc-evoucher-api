@@ -11,5 +11,6 @@ namespace eVoucher.Domain.Models
         public virtual string Country { get; set; }
         public virtual eAddressType Type { get; set; }
         public virtual bool IsDeleted { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -10,10 +10,10 @@ namespace eVoucher.Infrastructure.Maps
             Table("CampaignGame");
 
             References<Campaign>(x => x.Campaign)
-                .Column("Campaign_ID");
+                .Column("Campaign_ID_FK");
 
             References<Game>(x => x.Game)
-                .Column("Game_ID");
+                .Column("Game_ID_FK");
         }
     }
 }

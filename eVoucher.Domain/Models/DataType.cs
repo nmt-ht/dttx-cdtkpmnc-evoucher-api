@@ -6,7 +6,8 @@
         {
             ShipTo = 0,
             BillTo = 1,
-            BillToShipTo = 2
+            BillToShipTo = 2,
+            Company = 3
         }
 
         public enum ePartnerType
