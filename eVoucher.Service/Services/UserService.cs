@@ -21,6 +21,12 @@ namespace eVoucher.Service.Serivces
             var user = _domainRepository.GetOne<User>(c => c.Id == id);
             return user;
         }
+
+        public User UserLogin(UserDto userDto)
+        {
+            var user = _domainRepository.GetOne<User>(c => c.EmailAddress == userDto.EmailAddress && c.Password == userDto.Password);
+            return user;
+        }
         public async Task<bool> DeleteUser(Guid id)
         {
             try
@@ -43,7 +49,7 @@ namespace eVoucher.Service.Serivces
             }
         }
 
-        public async Task<bool> UpdateUser(UserDto userDto)
+        public User UpdateUser(UserDto userDto)
         {
             try
             {
@@ -53,13 +59,13 @@ namespace eVoucher.Service.Serivces
                 {
                     user = _mapper.Map<User>(userDto);
                     _domainRepository.Update(user, true);
-                    return true;
+                    return user;
                 }// add
                 else
                 {
                     user = _mapper.Map<User>(userDto);
                     _domainRepository.Add(user, true);
-                    return true;
+                    return user;
                 }
             }
             catch (Exception ex)

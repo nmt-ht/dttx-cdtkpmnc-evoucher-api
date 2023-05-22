@@ -59,6 +59,26 @@ namespace eVoucher.Server.Controllers
             }
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult> UserLogin([FromBody] UserDto UserDto)
+        {
+            try
+            {
+                var command = new UserLoginCommand(UserDto);
+                var result = await _mediator.Send(command);
+
+                if (result != null)
+                    return Ok(new APIResponseModel(true, 200, "Get User Login successfully.", result));
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("User API_User Controller_UserLogin - Exception: " + ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+            }
+        }
+
         [HttpPost("create")]
         public async Task<ActionResult> CreateUser([FromBody] UserDto UserDto)
         {
@@ -67,7 +87,10 @@ namespace eVoucher.Server.Controllers
                 var command = new CreateUpdateUserCommand(UserDto);
                 var result = await _mediator.Send(command);
 
-                return Ok(result);
+                if (result != null)
+                    return Ok(new APIResponseModel(true, 200, "Create User successfully.", result));
+
+                return NoContent();
             }
             catch (Exception ex)
             {

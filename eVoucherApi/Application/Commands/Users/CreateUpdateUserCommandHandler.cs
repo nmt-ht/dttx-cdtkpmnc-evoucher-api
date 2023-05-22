@@ -1,9 +1,10 @@
-﻿using eVoucher.Service.Serivces;
+﻿using eVoucher.Domain.Models;
+using eVoucher.Service.Serivces;
 using MediatR;
 
 namespace eVoucherApi.Application.Commands
 {
-    public class CreateUpdateUserCommandHandler : IRequestHandler<CreateUpdateUserCommand, bool>
+    public class CreateUpdateUserCommandHandler : IRequestHandler<CreateUpdateUserCommand, User>
     {
         private readonly IUserService _userService;
 
@@ -12,10 +13,9 @@ namespace eVoucherApi.Application.Commands
             _userService = userService;
         }
 
-        public async Task<bool> Handle(CreateUpdateUserCommand request, CancellationToken cancellationToken)
+        public Task<User> Handle(CreateUpdateUserCommand request, CancellationToken cancellationToken)
         {
-            if (request is null) return false;
-            return await _userService.UpdateUser(request.UserDto);
+            return Task.FromResult(_userService.UpdateUser(request.UserDto));
         }
     }
 }
