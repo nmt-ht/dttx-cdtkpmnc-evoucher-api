@@ -14,7 +14,7 @@ public class AddressMap : EntityMap<Address>
         Map(p => p.Country);
         Map(p => p.Type).CustomType<int>();
         Map(p => p.IsDeleted);
-        References<User>(x => x.User)
-                .Column("User_ID_FK");
+
+        References(x => x.User, "User_ID_FK");
     }
 }

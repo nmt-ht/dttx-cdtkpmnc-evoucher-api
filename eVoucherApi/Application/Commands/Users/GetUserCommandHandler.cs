@@ -13,9 +13,9 @@ namespace eVoucherApi.Application.Commands
             _userService = userService;
         }
 
-        public Task<User> Handle(GetUserCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(GetUserCommand request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_userService.GetUserById(request.Id));
+            return await _userService.GetUserById(request.Id);
         }
     }
 }

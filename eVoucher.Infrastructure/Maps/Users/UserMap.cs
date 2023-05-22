@@ -17,9 +17,9 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.Password);
             Map(p => p.IsActive);
 
-            HasMany<Address>(p => p.Addresses)
-                   .Table("[Address]")
-                   .KeyColumn("ID")
+            HasMany(p => p.Addresses)
+                   .KeyColumn("User_ID_FK")
+                   .Inverse()
                    .Cascade.AllDeleteOrphan();
         }
     }

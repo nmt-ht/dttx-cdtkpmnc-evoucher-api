@@ -27,9 +27,9 @@ namespace eVoucher.Server.Controllers
         {
             try
             {
-                var Users = await _UserQueries.GetUsers();
-                if (Users.Any())
-                    return Ok(new APIResponseModel(true, 200, "Get Users successfully.", Users));
+                var users = await _UserQueries.GetUsers();
+                if (users.Any())
+                    return Ok(new APIResponseModel(true, 200, "Get Users successfully.", users));
 
                 return NoContent();
             }
@@ -41,7 +41,7 @@ namespace eVoucher.Server.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetUser([FromQuery] Guid id = default)
+        public async Task<ActionResult> GetUser(Guid id)
         {
             try
             {
@@ -60,11 +60,11 @@ namespace eVoucher.Server.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> UserLogin([FromBody] UserDto UserDto)
+        public async Task<ActionResult> UserLogin([FromBody] UserDto userDto)
         {
             try
             {
-                var command = new UserLoginCommand(UserDto);
+                var command = new UserLoginCommand(userDto);
                 var result = await _mediator.Send(command);
 
                 if (result != null)
@@ -80,43 +80,44 @@ namespace eVoucher.Server.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult> CreateUser([FromBody] UserDto UserDto)
+        public async Task<ActionResult> CreateUser([FromBody] UserDto userDto)
         {
             try
             {
-                var command = new CreateUpdateUserCommand(UserDto);
+                var command = new CreateUpdateUserCommand(userDto);
                 var result = await _mediator.Send(command);
-
-                if (result != null)
-                    return Ok(new APIResponseModel(true, 200, "Create User successfully.", result));
-
-                return NoContent();
+                if(result is not null)
+                    return Ok(new APIResponseModel(true, 200, "Created Users successfully.", result));
             }
             catch (Exception ex)
             {
                 _logger.LogError("User API_User Controller_CreateUser - Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
+            return NoContent();
         }
 
         [HttpPost("update")]
-        public async Task<ActionResult> UpdateUser([FromBody] UserDto UserDto)
+        public async Task<ActionResult> UpdateUser([FromBody] UserDto userDto)
         {
             try
             {
-                var command = new CreateUpdateUserCommand(UserDto);
+                var command = new CreateUpdateUserCommand(userDto);
                 var result = await _mediator.Send(command);
 
-                return Ok(result);
+                if (result is not null)
+                    return Ok(new APIResponseModel(true, 200, "Updated User successfully."));
             }
             catch (Exception ex)
             {
                 _logger.LogError("User API_User Controller_UpdateUser - Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
+
+            return NoContent();
         }
 
-        [HttpPost("delete/{id}")]
+        [HttpPost("{id}/delete")]
         public async Task<ActionResult> DeleteUser([FromQuery] Guid id)
         {
             try
@@ -124,13 +125,16 @@ namespace eVoucher.Server.Controllers
                 var command = new DeleteUserCommand(id);
                 var result = await _mediator.Send(command);
 
-                return Ok(result);
+                if (result)
+                    return Ok(new APIResponseModel(true, 200, "Deleted User successfully."));
             }
             catch (Exception ex)
             {
                 _logger.LogError("User API_User Controller_DeleteUser - Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
+
+            return NoContent();
         }
     }
 }

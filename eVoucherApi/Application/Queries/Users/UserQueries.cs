@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using eVoucherApi.Models;
+using eVoucher.Service.Dtos;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -14,37 +14,19 @@ namespace eVoucher.Services.Api.Application.Queries
             _connectionString = connectionString;
         }
 
-        public async Task<IList<User>> GetUsers(Guid id = default)
+        public async Task<IList<UserDto>> GetUsers()
         {
-            var users = new List<User>();
+            var users = new List<UserDto>();
 
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-
-                var parameters = new DynamicParameters();
-                parameters.Add("@ID", id);
             
-                var result = await connection.QueryAsync<User>(@"spr_eVoucherApi_GetUsers", parameters, commandType: CommandType.StoredProcedure);
+                var result = await connection.QueryAsync<UserDto>(@"spr_eVoucherApi_GetUsers", commandType: CommandType.StoredProcedure);
                 users = result.AsList();
             }
 
             return users;
-        }
-
-        public async Task<bool> CreateUser(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> DeleteUser(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> UpdateUser(User user)
-        {
-            throw new NotImplementedException();
         }
     }
 }

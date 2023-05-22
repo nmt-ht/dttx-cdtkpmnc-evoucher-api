@@ -16,7 +16,7 @@ namespace eVoucher.Service.Serivces
             _mapper = mapper;
         }
 
-        public User GetUserById(Guid id)
+        public async Task<User> GetUserById(Guid id)
         {
             var user = _domainRepository.GetOne<User>(c => c.Id == id);
             return user;
@@ -49,24 +49,51 @@ namespace eVoucher.Service.Serivces
             }
         }
 
-        public User UpdateUser(UserDto userDto)
+        public async Task<User> UpdateUser(UserDto userDto)
         {
             try
             {
-                var user = _domainRepository.GetOne<User>(u => u.Id == userDto.Id);
+                if(userDto.Id == Guid.Empty)
+                {
+                    var user = _mapper.Map<UserDto, User>(userDto);
+                    _domainRepository.AddOrUpdate(user);
+                    _domainRepository.Refresh(user);
 
-                if (user is not null) // update
-                {
-                    user = _mapper.Map<User>(userDto);
-                    _domainRepository.Update(user, true);
-                    return user;
-                }// add
-                else
-                {
-                    user = _mapper.Map<User>(userDto);
-                    _domainRepository.Add(user, true);
+                    foreach (var address in userDto.Addresses)
+                    {
+                        var addressObject = _mapper.Map<AddressDto, Address>(address);
+                        addressObject.User = user;
+
+                        if (user.Addresses is null)
+                            user.Addresses = new List<Address>();
+
+                        user.Addresses.Add(addressObject);
+                    }
+                    _domainRepository.AddOrUpdate(user);
                     return user;
                 }
+                else
+                {
+                    var user = _domainRepository.GetOne<User>(u => u.Id == userDto.Id);
+                    user = _mapper.Map<UserDto, User>(userDto);
+
+                    if(user.Addresses is not null)
+                        user.Addresses.Clear();
+
+                    foreach (var address in userDto.Addresses)
+                    {
+                        var addressObject = _mapper.Map<AddressDto, Address>(address);
+                        addressObject.User = user;
+
+                        if (user.Addresses is null)
+                            user.Addresses = new List<Address>();
+
+                        user.Addresses.Add(addressObject);
+                    }
+                    _domainRepository.Update(user);
+                    return user;
+                }
+
             }
             catch (Exception ex)
             {

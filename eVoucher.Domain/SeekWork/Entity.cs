@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace eVoucher.Domain.SeekWork
+﻿namespace eVoucher.Domain.SeekWork
 {
     public abstract class Entity
     {
