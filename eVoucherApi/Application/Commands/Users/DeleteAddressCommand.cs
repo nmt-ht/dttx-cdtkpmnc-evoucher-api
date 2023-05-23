@@ -1,12 +1,11 @@
-﻿using eVoucher.Service.Dtos;
-using MediatR;
+﻿using MediatR;
 
 namespace eVoucherApi.Application.Commands
 {
-    public class GetUserCommand : IRequest<UserDto>
+    public class DeleteAddressCommand : IRequest<bool>
     {
         public Guid Id { get; set; }
-        public GetUserCommand(Guid id)
+        public DeleteAddressCommand(Guid id)
         {
             Id = id;
         }
