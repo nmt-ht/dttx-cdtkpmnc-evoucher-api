@@ -22,7 +22,7 @@ namespace eVoucherApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("partners")]
+        [HttpGet]
         public async Task<ActionResult> GetPartners()
         {
             try

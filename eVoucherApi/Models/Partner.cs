@@ -5,7 +5,7 @@ namespace eVoucherApi.Models
 {
     public class Partner
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
         public string? CompanyName { get; set; }
         public string? Description { get; set; }
         public string? CompanyEmailAddress { get; set; }
