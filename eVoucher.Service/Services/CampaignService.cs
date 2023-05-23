@@ -26,11 +26,11 @@ namespace eVoucher.Service.Serivces
         {
             try
             {
-                var Campaign = _domainRepository.GetOne<Campaign>(u => u.Id == id);
+                var campaign = _domainRepository.GetOne<Campaign>(u => u.Id == id);
 
-                if (Campaign is not null) // delete 
+                if (campaign is not null) // delete 
                 {
-                    _domainRepository.Remove(Campaign, true);
+                    _domainRepository.Remove(campaign, true);
                     return true;
                 }
                 else
@@ -48,18 +48,24 @@ namespace eVoucher.Service.Serivces
         {
             try
             {
-                var Campaign = _domainRepository.GetOne<Campaign>(u => u.Id == CampaignDto.Id);
+                var campaign = _domainRepository.GetOne<Campaign>(u => u.Id == CampaignDto.Id);
+                var createdBy = _domainRepository.GetOne<User>(u => u.Id == CampaignDto.CreatedBy);
 
-                if (Campaign is not null) // update
+                if (campaign is not null) // update
                 {
-                    Campaign = _mapper.Map<Campaign>(CampaignDto);
-                    _domainRepository.Update(Campaign, true);
+                    campaign = _mapper.Map<Campaign>(CampaignDto);
+                    _domainRepository.Update(campaign, true);
                     return true;
                 }// add
                 else
                 {
-                    Campaign = _mapper.Map<Campaign>(CampaignDto);
-                    _domainRepository.Add(Campaign, true);
+                    campaign = _mapper.Map<Campaign>(CampaignDto);
+                    campaign.CreatedBy = createdBy;
+                    campaign.ModifiedBy = createdBy;
+                    campaign.CreatedDate = DateTime.Now;
+                    campaign.ModifiedDate = DateTime.Now;
+                    campaign.IsDeleted = false;
+                    _domainRepository.Add(campaign, true);
                     return true;
                 }
             }

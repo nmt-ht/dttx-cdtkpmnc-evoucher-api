@@ -16,7 +16,9 @@ namespace eVoucher.Service.AutoMappings
             CreateMap<UserDto, User>()
                 .ForMember(dto => dto.Addresses, opt => opt.Ignore());
             CreateMap<AddressDto, Address>();
-            CreateMap<CampaignDto, Campaign>();
+            CreateMap<CampaignDto, Campaign>()
+            .ForMember(dto => dto.ModifiedBy, opt => opt.Ignore())
+                .ForMember(dto => dto.CreatedBy, opt => opt.Ignore());
             CreateMap<PartnerDto, Partner>();
         }
     }

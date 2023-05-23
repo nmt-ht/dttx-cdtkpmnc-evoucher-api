@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/eVoucherApi/Controllers/CampaignsController.cs
+/eVoucherApi/Application/Queries/Campaigns/CampaignQueries.cs
+/eVoucherApi/Application/Queries/Campaigns/ICampaignQueries.cs

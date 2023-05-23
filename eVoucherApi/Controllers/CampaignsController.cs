@@ -22,7 +22,7 @@ namespace eVoucherApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("campaigns")]
+        [HttpGet]
         public async Task<ActionResult> GetCampaigns()
         {
             try
@@ -104,6 +104,8 @@ namespace eVoucherApi.Controllers
 
                 return Ok(result);
             }
+
+
             catch (Exception ex)
             {
                 _logger.LogError("Campaign API_Campaign Controller_DeleteCampaign - Exception: " + ex.ToString());
