@@ -2,6 +2,7 @@
 using eVoucher.Domain.Models;
 using eVoucher.Infrastructure.Reposistories;
 using eVoucher.Service.Dtos;
+using eVoucherApi.domain.Models;
 
 namespace eVoucher.Service.Serivces
 {
@@ -74,5 +75,40 @@ namespace eVoucher.Service.Serivces
                 throw ex;
             }
         }
-    }
+
+        public async Task<bool> EditGame(GameDto gameDto)
+        {
+            if (gameDto is not null)
+            {
+                var game = _domainRepository.GetOne<Game>(ad => ad.Id == gameDto.Id);
+                game.Name = gameDto.Name;
+                game.Description = gameDto.Description;
+                _domainRepository.Update(game);
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> DeleteGame(Guid id)
+        {
+            try
+            {
+                var game = _domainRepository.GetOne<Game>(u => u.Id == id);
+
+                if (game is not null) // delete 
+                {
+                    _domainRepository.Remove(game, true);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    } 
 }
