@@ -5,9 +5,12 @@ namespace eVoucher.Service.Serivces
 {
     public interface IUserService
     {
-        Task<User> GetUserById(Guid id);
-        Task<User> UpdateUser(UserDto UserDto);
+        Task<UserDto> GetUserById(Guid id);
+        Task<User> CreateUser(UserDto user);
+        Task<User> UpdateUser(UpdateUserDto UserDto);
         Task<bool> DeleteUser(Guid id);
         User UserLogin(UserDto UserDto);
+        Task<bool> EditAddress(AddressDto addressDto);
+        Task<bool> DeleteAddress(Guid id);
     }
 }
