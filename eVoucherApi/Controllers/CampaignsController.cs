@@ -67,14 +67,16 @@ namespace eVoucherApi.Controllers
             {
                 var command = new CreateUpdateCampaignCommand(CampaignDto);
                 var result = await _mediator.Send(command);
-
-                return Ok(result);
+                if(result)
+                    return Ok(new APIResponseModel(true, 200, "Create Campaign successfully.", result));
             }
             catch (Exception ex)
             {
                 _logger.LogError("Campaign API_Campaign Controller_CreateCampaign - Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
+
+            return NoContent();
         }
 
         [HttpPost("update")]
@@ -85,13 +87,16 @@ namespace eVoucherApi.Controllers
                 var command = new CreateUpdateCampaignCommand(CampaignDto);
                 var result = await _mediator.Send(command);
 
-                return Ok(result);
+                if (result)
+                    return Ok(new APIResponseModel(true, 200, "Update Campaign successfully.", result));
             }
             catch (Exception ex)
             {
                 _logger.LogError("Campaign API_Campaign Controller_UpdateCampaign - Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
+
+            return NoContent();
         }
 
         [HttpPost("delete/{id}")]
@@ -101,16 +106,17 @@ namespace eVoucherApi.Controllers
             {
                 var command = new DeleteCampaignCommand(id);
                 var result = await _mediator.Send(command);
-
-                return Ok(result);
+                
+                if (result)
+                    return Ok(new APIResponseModel(true, 200, "Delete Campaign successfully."));
             }
-
-
             catch (Exception ex)
             {
                 _logger.LogError("Campaign API_Campaign Controller_DeleteCampaign - Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
+
+            return NoContent();
         }
     }
 }
