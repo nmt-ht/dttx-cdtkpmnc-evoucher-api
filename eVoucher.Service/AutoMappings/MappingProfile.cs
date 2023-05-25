@@ -8,15 +8,16 @@ namespace eVoucher.Service.AutoMappings
     {
         public eVourcherProfile()
         {
-            CreateMap<User, UserDto>()
-                .ForMember(dto => dto.Addresses, opt => opt.Ignore());
+            CreateMap<User, UserDto>();
             CreateMap<Address, AddressDto>();
             CreateMap<Campaign, CampaignDto>();
             CreateMap<Partner, PartnerDto>();
             CreateMap<UserDto, User>()
                 .ForMember(dto => dto.Addresses, opt => opt.Ignore());
             CreateMap<AddressDto, Address>();
-            CreateMap<CampaignDto, Campaign>();
+            CreateMap<CampaignDto, Campaign>()
+            .ForMember(dto => dto.ModifiedBy, opt => opt.Ignore())
+                .ForMember(dto => dto.CreatedBy, opt => opt.Ignore());
             CreateMap<PartnerDto, Partner>();
         }
     }

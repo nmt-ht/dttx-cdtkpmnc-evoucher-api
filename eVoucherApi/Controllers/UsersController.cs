@@ -84,7 +84,7 @@ namespace eVoucher.Server.Controllers
         {
             try
             {
-                var command = new CreateUpdateUserCommand(userDto);
+                var command = new CreateUserCommand(userDto);
                 var result = await _mediator.Send(command);
                 if(result is not null)
                     return Ok(new APIResponseModel(true, 200, "Created Users successfully.", result));
@@ -98,11 +98,11 @@ namespace eVoucher.Server.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<ActionResult> UpdateUser([FromBody] UserDto userDto)
+        public async Task<ActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
         {
             try
             {
-                var command = new CreateUpdateUserCommand(userDto);
+                var command = new UpdateUserCommand(updateUserDto);
                 var result = await _mediator.Send(command);
 
                 if (result is not null)
@@ -117,7 +117,7 @@ namespace eVoucher.Server.Controllers
             return NoContent();
         }
 
-        [HttpPost("{id}/delete")]
+        [HttpPost("delete/{id}")]
         public async Task<ActionResult> DeleteUser([FromQuery] Guid id)
         {
             try
@@ -135,6 +135,46 @@ namespace eVoucher.Server.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpPost("address/update")]
+        public async Task<ActionResult> EditAddress([FromBody] AddressDto addressDto)
+        {
+            try
+            {
+                var command = new EditAddressCommand(addressDto);
+                var result = await _mediator.Send(command);
+
+                if (result)
+                    return Ok(new APIResponseModel(true, 200, "Edit address successfully."));
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("User API_User Controller_UserLogin - Exception: " + ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpPost("address/delete/{id}")]
+        public async Task<ActionResult> DeleteAddress(Guid id)
+        {
+            try
+            {
+                var command = new DeleteAddressCommand(id);
+                var result = await _mediator.Send(command);
+
+                if (result)
+                    return Ok(new APIResponseModel(true, 200, "Delete address successfully."));
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("User API_User Controller_UserLogin - Exception: " + ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+            }
         }
     }
 }
