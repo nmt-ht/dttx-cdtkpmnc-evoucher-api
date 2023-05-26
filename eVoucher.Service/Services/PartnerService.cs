@@ -49,16 +49,20 @@ namespace eVoucher.Service.Serivces
             try
             {
                 var Partner = _domainRepository.GetOne<Partner>(u => u.Id == PartnerDto.Id);
+                var guid = new Guid("BEFA0A81-89DB-46B4-83C0-2E43FDFF1B55");
+
 
                 if (Partner is not null) // update
                 {
                     Partner = _mapper.Map<Partner>(PartnerDto);
+                    Partner.User = _domainRepository.GetOne<User>(u => u.Id == guid);
                     _domainRepository.Update(Partner, true);
                     return true;
                 }// add
                 else
                 {
                     Partner = _mapper.Map<Partner>(PartnerDto);
+                    Partner.User = _domainRepository.GetOne<User>(u => u.Id == guid);
                     _domainRepository.Add(Partner, true);
                     return true;
                 }
