@@ -4,10 +4,10 @@ using MediatR;
 
 namespace eVoucherApi.Application.Commands
 {
-    public class UpdateUserCommand : IRequest<User>
+    public class UpdateUserCommand : IRequest<UserDto>
     {
-        public UpdateUserDto UpdateUserDto { get; set; }
-        public UpdateUserCommand(UpdateUserDto dto)
+        public UserDto UpdateUserDto { get; set; }
+        public UpdateUserCommand(UserDto dto)
         {
             UpdateUserDto = dto;
         }

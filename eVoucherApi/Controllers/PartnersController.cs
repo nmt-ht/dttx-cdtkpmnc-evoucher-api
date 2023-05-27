@@ -40,7 +40,7 @@ namespace eVoucherApi.Controllers
             }
         }
 
-        [HttpGet("partner/{id}")]
+        [HttpGet("partners/{id}")]
         public async Task<ActionResult> GetPartner(Guid id)
         {
             try
@@ -94,7 +94,7 @@ namespace eVoucherApi.Controllers
             }
         }
 
-        [HttpPost("delete/{id}")]
+        [HttpDelete("{id}/delete")]
         public async Task<ActionResult> DeletePartner(Guid id)
         {
             try

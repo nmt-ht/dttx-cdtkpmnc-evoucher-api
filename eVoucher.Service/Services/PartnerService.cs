@@ -48,20 +48,24 @@ namespace eVoucher.Service.Serivces
         {
             try
             {
-                if (partnerDto.Id != Guid.Empty) // update
+                if (partnerDto != null)
                 {
-                    var partner = _mapper.Map<PartnerDto, Partner>(partnerDto);
-                    partner.User = _domainRepository.GetOne<User>(u => u.Id == partnerDto.User_ID_FK);
-                    _domainRepository.Update(partner, true);
-                    return true;
-                }// add
-                else
-                {
-                    var partner = _mapper.Map<Partner>(partnerDto);
-                    partner.User = _domainRepository.GetOne<User>(u => u.Id == partnerDto.User_ID_FK);
-                    _domainRepository.Add(partner, true);
-                    return true;
+                    if (partnerDto.Id != Guid.Empty) // update
+                    {
+                        var partner = _mapper.Map<PartnerDto, Partner>(partnerDto);
+                        partner.User = _domainRepository.GetOne<User>(u => u.Id == partnerDto.User_ID_FK);
+                        _domainRepository.Update(partner, true);
+                        return true;
+                    }// add
+                    else
+                    {
+                        var partner = _mapper.Map<Partner>(partnerDto);
+                        partner.User = _domainRepository.GetOne<User>(u => u.Id == partnerDto.User_ID_FK);
+                        _domainRepository.Add(partner, true);
+                        return true;
+                    }
                 }
+                return false;
             }
             catch (Exception ex)
             {

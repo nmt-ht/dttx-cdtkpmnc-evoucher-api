@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using eVoucher.Service.Dtos;
 using eVoucherApi.Models;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,9 +14,9 @@ public class PartnerQueries: IPartnerQueries
         _connectionString = connectionString;
     }
 
-    public async Task<IList<Partner>> GetPartners()
+    public async Task<IList<PartnerDto>> GetPartners()
     {
-        var partners = new List<Partner>();
+        var partners = new List<PartnerDto>();
 
         using (var connection = new SqlConnection(_connectionString))
         {
@@ -23,8 +24,8 @@ public class PartnerQueries: IPartnerQueries
 
             var parameters = new DynamicParameters();
 
-            var result = await connection.QueryAsync<Partner>(@"spr_eVoucherApi_GetPartners", commandType: CommandType.StoredProcedure);
-            partners = result.AsList<Partner>();
+            var result = await connection.QueryAsync<PartnerDto>(@"spr_eVoucherApi_GetPartners", commandType: CommandType.StoredProcedure);
+            partners = result.AsList<PartnerDto>();
         }
 
         return partners;

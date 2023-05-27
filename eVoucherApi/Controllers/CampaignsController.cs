@@ -40,8 +40,8 @@ namespace eVoucherApi.Controllers
             }
         }
 
-        [HttpGet("campaign/{id}")]
-        public async Task<ActionResult> GetCampaign([FromQuery] Guid id)
+        [HttpGet("campaigns/{id}")]
+        public async Task<ActionResult> GetCampaign(Guid id)
         {
             try
             {
@@ -99,8 +99,8 @@ namespace eVoucherApi.Controllers
             return NoContent();
         }
 
-        [HttpPost("delete/{id}")]
-        public async Task<ActionResult> DeleteCampaign([FromQuery] Guid id)
+        [HttpDelete("{id}/delete")]
+        public async Task<ActionResult> DeleteCampaign(Guid id)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace eVoucherApi.Controllers
                 var result = await _mediator.Send(command);
                 
                 if (result)
-                    return Ok(new APIResponseModel(true, 200, "Delete Campaign successfully."));
+                    return Ok(new APIResponseModel(true, 200, "Delete Campaign successfully.", result));
             }
             catch (Exception ex)
             {
