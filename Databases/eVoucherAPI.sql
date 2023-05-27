@@ -39,10 +39,10 @@ SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[Address](
 	[ID] [uniqueidentifier] NOT NULL,
-	[Street] [varchar](200) NULL,
-	[District] [varchar](200) NULL,
-	[City] [varchar](200) NULL,
-	[Country] [varchar](200) NULL,
+	[Street] [nvarchar](200) NULL,
+	[District] [nvarchar](200) NULL,
+	[City] [nvarchar](200) NULL,
+	[Country] [nvarchar](200) NULL,
 	[Type] [tinyint] NULL,
 	[IsDeleted] [bit] NULL,
 	[User_ID_FK] [uniqueidentifier] NOT NULL
