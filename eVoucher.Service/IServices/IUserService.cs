@@ -9,7 +9,7 @@ namespace eVoucher.Service.Serivces
         Task<User> CreateUser(UserDto user);
         Task<User> UpdateUser(UpdateUserDto UserDto);
         Task<bool> DeleteUser(Guid id);
-        User UserLogin(UserDto UserDto);
+        Task<UserDto> UserLogin(UserDto UserDto);
         Task<bool> EditAddress(AddressDto addressDto);
         Task<bool> DeleteAddress(Guid id);
     }

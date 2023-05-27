@@ -22,10 +22,10 @@ namespace eVoucher.Service.Serivces
             return _mapper.Map<User, UserDto>(user);
         }
 
-        public User UserLogin(UserDto userDto)
+        public async Task<UserDto> UserLogin(UserDto userDto)
         {
             var user = _domainRepository.GetOne<User>(c => c.EmailAddress == userDto.EmailAddress && c.Password == userDto.Password);
-            return user;
+            return _mapper.Map<User, UserDto>(user);
         }
         public async Task<bool> DeleteUser(Guid id)
         {

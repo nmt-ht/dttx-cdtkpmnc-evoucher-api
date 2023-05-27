@@ -16,21 +16,21 @@ namespace eVoucher.Service.Serivces
             _mapper = mapper;
         }
 
-        public Partner GetPartnerById(Guid id)
+        public async Task<PartnerDto> GetPartnerById(Guid id)
         {
-            var Partner = _domainRepository.GetOne<Partner>(c => c.Id == id);
-            return Partner;
+            var partner = _domainRepository.GetOne<Partner>(c => c.Id == id);
+            return _mapper.Map<Partner, PartnerDto>(partner);
         }
 
         public async Task<bool> DeletePartner(Guid id)
         {
             try
             {
-                var Partner = _domainRepository.GetOne<Partner>(u => u.Id == id);
+                var partner = _domainRepository.GetOne<Partner>(u => u.Id == id);
 
-                if (Partner is not null) // delete 
+                if (partner is not null) // delete 
                 {
-                    _domainRepository.Remove(Partner, true);
+                    _domainRepository.Remove(partner, true);
                     return true;
                 }
                 else
@@ -44,26 +44,22 @@ namespace eVoucher.Service.Serivces
             }
         }
 
-        public async Task<bool> UpdatePartner(PartnerDto PartnerDto)
+        public async Task<bool> UpdatePartner(PartnerDto partnerDto)
         {
             try
             {
-                var Partner = _domainRepository.GetOne<Partner>(u => u.Id == PartnerDto.Id);
-                var guid = new Guid("BEFA0A81-89DB-46B4-83C0-2E43FDFF1B55");
-
-
-                if (Partner is not null) // update
+                if (partnerDto.Id != Guid.Empty) // update
                 {
-                    Partner = _mapper.Map<Partner>(PartnerDto);
-                    Partner.User = _domainRepository.GetOne<User>(u => u.Id == guid);
-                    _domainRepository.Update(Partner, true);
+                    var partner = _mapper.Map<PartnerDto, Partner>(partnerDto);
+                    partner.User = _domainRepository.GetOne<User>(u => u.Id == partnerDto.User_ID_FK);
+                    _domainRepository.Update(partner, true);
                     return true;
                 }// add
                 else
                 {
-                    Partner = _mapper.Map<Partner>(PartnerDto);
-                    Partner.User = _domainRepository.GetOne<User>(u => u.Id == guid);
-                    _domainRepository.Add(Partner, true);
+                    var partner = _mapper.Map<Partner>(partnerDto);
+                    partner.User = _domainRepository.GetOne<User>(u => u.Id == partnerDto.User_ID_FK);
+                    _domainRepository.Add(partner, true);
                     return true;
                 }
             }

@@ -15,7 +15,7 @@ public class PartnerQueries: IPartnerQueries
 
     public async Task<IList<Partner>> GetPartners()
     {
-        var Partners = new List<Partner>();
+        var partners = new List<Partner>();
 
         using (var connection = new SqlConnection(_connectionString))
         {
@@ -24,9 +24,9 @@ public class PartnerQueries: IPartnerQueries
             var parameters = new DynamicParameters();
 
             var result = await connection.QueryAsync<Partner>(@"spr_eVoucherApi_GetPartners", commandType: CommandType.StoredProcedure);
-            Partners = result.AsList<Partner>();
+            partners = result.AsList<Partner>();
         }
 
-        return Partners;
+        return partners;
     }
 }

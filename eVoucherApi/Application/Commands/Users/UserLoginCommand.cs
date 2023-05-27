@@ -4,7 +4,7 @@ using MediatR;
 
 namespace eVoucherApi.Application.Commands
 {
-    public class UserLoginCommand : IRequest<User>
+    public class UserLoginCommand : IRequest<UserDto>
     {
         public UserDto User { get; set; }
         public UserLoginCommand(UserDto user)
