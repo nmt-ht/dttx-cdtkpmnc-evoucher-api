@@ -15,6 +15,6 @@ namespace eVoucher.Service.Dtos
         public DateTime JoinDate { get; set; } = DateTime.MinValue;
         public ePartnerType Type { get; set; }
         public bool IsActive { get; set; }
-        public Guid User_ID { get; set; }
+        public Guid User_ID_FK { get; set; }
     }
 }

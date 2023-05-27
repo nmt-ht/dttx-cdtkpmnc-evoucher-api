@@ -22,10 +22,10 @@ namespace eVoucher.Service.Serivces
             return _mapper.Map<User, UserDto>(user);
         }
 
-        public User UserLogin(UserDto userDto)
+        public async Task<UserDto> UserLogin(UserDto userDto)
         {
             var user = _domainRepository.GetOne<User>(c => c.EmailAddress == userDto.EmailAddress && c.Password == userDto.Password);
-            return user;
+            return _mapper.Map<User, UserDto>(user);
         }
         public async Task<bool> DeleteUser(Guid id)
         {
@@ -49,25 +49,15 @@ namespace eVoucher.Service.Serivces
             }
         }
 
-        public async Task<User> UpdateUser(UpdateUserDto updateUserDto)
+        public async Task<UserDto> UpdateUser(UserDto updateUserDto)
         {
             try
             {
                 if (updateUserDto is not null)
                 {
-                    var user = _domainRepository.GetOne<User>(u => u.Id == updateUserDto.Id);
-
-                    //Should be used auto mapper, handle later
-                    user.FirstName = updateUserDto.FirstName;
-                    user.LastName = updateUserDto.LastName;
-                    user.DateOfBirth = updateUserDto.DateOfBirth;
-                    user.Phone = updateUserDto.Phone;
-                    user.EmailAddress = updateUserDto.EmailAddress;
-                    user.Password = updateUserDto.Password;
-                    user.UserName = updateUserDto.UserName;
-
+                    var user = _mapper.Map<UserDto, User>(updateUserDto);
                     _domainRepository.Update(user);
-                    return user;
+                    return _mapper.Map<User, UserDto>(user);
                 }
 
                 return null;
@@ -78,7 +68,7 @@ namespace eVoucher.Service.Serivces
             }
         }
 
-        public async Task<User> CreateUser(UserDto userDto)
+        public async Task<UserDto> CreateUser(UserDto userDto)
         {
             var user = _mapper.Map<UserDto, User>(userDto);
             _domainRepository.AddOrUpdate(user);
@@ -95,7 +85,7 @@ namespace eVoucher.Service.Serivces
                 user.Addresses.Add(addressObject);
             }
             _domainRepository.AddOrUpdate(user);
-            return user;
+            return _mapper.Map<User, UserDto>(user);
         }
 
         public async Task<bool> EditAddress(AddressDto addressDto)

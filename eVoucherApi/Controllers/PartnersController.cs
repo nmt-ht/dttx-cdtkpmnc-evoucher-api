@@ -40,8 +40,8 @@ namespace eVoucherApi.Controllers
             }
         }
 
-        [HttpGet("Partner/{id}")]
-        public async Task<ActionResult> GetPartners([FromQuery] Guid id)
+        [HttpGet("partners/{id}")]
+        public async Task<ActionResult> GetPartner(Guid id)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace eVoucherApi.Controllers
                 var command = new CreateUpdatePartnerCommand(PartnerDto);
                 var result = await _mediator.Send(command);
 
-                return Ok(result);
+                return Ok(new APIResponseModel(true, 200, "Create Partner successfully.", result));
             }
             catch (Exception ex)
             {
@@ -85,7 +85,7 @@ namespace eVoucherApi.Controllers
                 var command = new CreateUpdatePartnerCommand(PartnerDto);
                 var result = await _mediator.Send(command);
 
-                return Ok(result);
+                return Ok(new APIResponseModel(true, 200, "Update Partner successfully.", result));
             }
             catch (Exception ex)
             {
@@ -94,15 +94,15 @@ namespace eVoucherApi.Controllers
             }
         }
 
-        [HttpPost("delete/{id}")]
-        public async Task<ActionResult> DeletePartner([FromQuery] Guid id)
+        [HttpDelete("{id}/delete")]
+        public async Task<ActionResult> DeletePartner(Guid id)
         {
             try
             {
                 var command = new DeletePartnerCommand(id);
                 var result = await _mediator.Send(command);
 
-                return Ok(result);
+                return Ok(new APIResponseModel(true, 200, "delete Partner successfully.", result));
             }
             catch (Exception ex)
             {

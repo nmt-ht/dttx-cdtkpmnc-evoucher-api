@@ -5,8 +5,11 @@ namespace eVoucher.Service.Serivces
 {
     public interface ICampaignService
     {
-        Campaign GetCampaignById(Guid id);
+        Task<CampaignDto> GetCampaignById(Guid id);
         Task<bool> UpdateCampaign(CampaignDto CampaignDto);
         Task<bool> DeleteCampaign(Guid id);
+        Task<bool> EditGame(GameDto gameDto);
+        Task<bool> DeleteGame(Guid id);
+
     }
 }

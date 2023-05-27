@@ -1,10 +1,11 @@
 ﻿using eVoucher.Domain.Models;
+using eVoucher.Service.Dtos;
 using eVoucher.Service.Serivces;
 using MediatR;
 
 namespace eVoucherApi.Application.Commands
 {
-    public class UserLoginCommandHandler: IRequestHandler<UserLoginCommand, User>
+    public class UserLoginCommandHandler: IRequestHandler<UserLoginCommand, UserDto>
     {
         private readonly IUserService _userService;
 
@@ -13,9 +14,9 @@ namespace eVoucherApi.Application.Commands
             _userService = userService;
         }
 
-        public Task<User> Handle(UserLoginCommand request, CancellationToken cancellationToken)
+        public async Task<UserDto> Handle(UserLoginCommand request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_userService.UserLogin(request.User));
+            return await _userService.UserLogin(request.User);
         }
     }
 }

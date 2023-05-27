@@ -14,9 +14,9 @@ public class CampaignQueries: ICampaignQueries
         _connectionString = connectionString;
     }
 
-    public async Task<IList<Campaign>> GetCampaigns()
+    public async Task<IList<CampaignDto>> GetCampaigns()
     {
-        var campaigns = new List<Campaign>();
+        var campaigns = new List<CampaignDto>();
 
         using (var connection = new SqlConnection(_connectionString))
         {
@@ -24,8 +24,8 @@ public class CampaignQueries: ICampaignQueries
 
             var parameters = new DynamicParameters();
 
-            var result = await connection.QueryAsync<Campaign>(@"spr_eVoucherApi_GetCampaigns", commandType: CommandType.StoredProcedure);
-            campaigns = result.AsList<Campaign>();
+            var result = await connection.QueryAsync<CampaignDto>(@"spr_eVoucherApi_GetCampaigns", commandType: CommandType.StoredProcedure);
+            campaigns = result.AsList<CampaignDto>();
         }
 
         return campaigns;

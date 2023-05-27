@@ -1,10 +1,11 @@
 ﻿using eVoucher.Domain.Models;
+using eVoucher.Service.Dtos;
 using eVoucher.Service.Serivces;
 using MediatR;
 
 namespace eVoucherApi.Application.Commands
 {
-    public class GetPartnerCommandHandler: IRequestHandler<GetPartnerCommand, Partner>
+    public class GetPartnerCommandHandler: IRequestHandler<GetPartnerCommand, PartnerDto>
     {
         private readonly IPartnerService _partnerService;
 
@@ -13,9 +14,9 @@ namespace eVoucherApi.Application.Commands
             _partnerService = partnerService;
         }
 
-        public Task<Partner> Handle(GetPartnerCommand request, CancellationToken cancellationToken)
+        public async Task<PartnerDto> Handle(GetPartnerCommand request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_partnerService.GetPartnerById(request.Id));
+            return await _partnerService.GetPartnerById(request.Id);
         }
     }
 }

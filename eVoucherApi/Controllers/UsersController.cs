@@ -98,7 +98,7 @@ namespace eVoucher.Server.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<ActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
+        public async Task<ActionResult> UpdateUser([FromBody] UserDto updateUserDto)
         {
             try
             {
@@ -117,8 +117,8 @@ namespace eVoucher.Server.Controllers
             return NoContent();
         }
 
-        [HttpPost("delete/{id}")]
-        public async Task<ActionResult> DeleteUser([FromQuery] Guid id)
+        [HttpDelete("{id}/delete")]
+        public async Task<ActionResult> DeleteUser(Guid id)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace eVoucher.Server.Controllers
             }
         }
 
-        [HttpPost("address/delete/{id}")]
+        [HttpDelete("address/{id}/delete")]
         public async Task<ActionResult> DeleteAddress(Guid id)
         {
             try

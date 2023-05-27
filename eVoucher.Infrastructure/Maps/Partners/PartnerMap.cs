@@ -12,7 +12,7 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.Description);
             Map(p => p.CompanyEmailAddress);
             Map(p => p.CompanyPhone);
-            Map(p => p.Image);
+            Map(p => p.Image).CustomSqlType("VARBINARY(MAX)").Length(int.MaxValue);
             Map(p => p.JoinDate);
             Map(p => p.Type).CustomType<int>();
             Map(p => p.IsActive);

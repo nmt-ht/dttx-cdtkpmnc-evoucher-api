@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Antlr.Runtime;
+using AutoMapper;
 using eVoucher.Domain.Models;
 using eVoucher.Infrastructure.Reposistories;
 using eVoucher.Service.Dtos;
@@ -17,10 +18,10 @@ namespace eVoucher.Service.Serivces
             _mapper = mapper;
         }
 
-        public Campaign GetCampaignById(Guid id)
+        public async Task<CampaignDto> GetCampaignById(Guid id)
         {
             var campaign = _domainRepository.GetOne<Campaign>(c => c.Id == id);
-            return campaign;
+            return _mapper.Map<Campaign, CampaignDto>(campaign);
         }
 
         public async Task<bool> DeleteCampaign(Guid id)
@@ -45,30 +46,38 @@ namespace eVoucher.Service.Serivces
             }
         }
 
-        public async Task<bool> UpdateCampaign(CampaignDto CampaignDto)
+        public async Task<bool> UpdateCampaign(CampaignDto campaignDto)
         {
             try
             {
-                var campaign = _domainRepository.GetOne<Campaign>(u => u.Id == CampaignDto.Id);
-                var createdBy = _domainRepository.GetOne<User>(u => u.Id == CampaignDto.CreatedBy);
+                if (campaignDto is not null)
+                {
+                    if (campaignDto.Id != Guid.Empty) // update
+                    {
+                        var createdBy = _domainRepository.GetOne<User>(u => u.Id == campaignDto.CreatedBy);
+                        var modifiedBy = _domainRepository.GetOne<User>(u => u.Id == campaignDto.ModifiedBy);
+                        var campaign = _mapper.Map<Campaign>(campaignDto);
+                        campaign.CreatedBy = createdBy;
+                        campaign.ModifiedBy = modifiedBy;
+                        campaign.ModifiedDate = DateTime.Now;
+                        _domainRepository.Update(campaign, true);
+                        return true;
+                    }// add
+                    else
+                    {
+                        var createdBy = _domainRepository.GetOne<User>(u => u.Id == campaignDto.CreatedBy);
+                        var campaign = _mapper.Map<Campaign>(campaignDto);
+                        campaign.CreatedBy = createdBy;
+                        campaign.ModifiedBy = createdBy;
+                        campaign.CreatedDate = DateTime.Now;
+                        campaign.ModifiedDate = DateTime.Now;
+                        campaign.IsDeleted = false;
 
-                if (campaign is not null) // update
-                {
-                    campaign = _mapper.Map<Campaign>(CampaignDto);
-                    _domainRepository.Update(campaign, true);
-                    return true;
-                }// add
-                else
-                {
-                    campaign = _mapper.Map<Campaign>(CampaignDto);
-                    campaign.CreatedBy = createdBy;
-                    campaign.ModifiedBy = createdBy;
-                    campaign.CreatedDate = DateTime.Now;
-                    campaign.ModifiedDate = DateTime.Now;
-                    campaign.IsDeleted = false;
-                    _domainRepository.Add(campaign, true);
-                    return true;
+                        _domainRepository.Add(campaign, true);
+                        return true;
+                    }
                 }
+                return false;
             }
             catch (Exception ex)
             {
@@ -80,10 +89,8 @@ namespace eVoucher.Service.Serivces
         {
             if (gameDto is not null)
             {
-                var game = _domainRepository.GetOne<Game>(ad => ad.Id == gameDto.Id);
-                game.Name = gameDto.Name;
-                game.Description = gameDto.Description;
-                _domainRepository.Update(game);
+                var game = _mapper.Map<Game>(gameDto);
+                _domainRepository.Update(game, true);
                 return true;
             }
             return false;

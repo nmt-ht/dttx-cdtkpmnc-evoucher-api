@@ -1,7 +1,8 @@
-﻿using eVoucherApi.Models;
+﻿using eVoucher.Service.Dtos;
+using eVoucherApi.Models;
 
 namespace eVoucher.Services.Api.Application.Queries;
 public interface IPartnerQueries
 {
-    Task<IList<Partner>> GetPartners();
+    Task<IList<PartnerDto>> GetPartners();
 }
