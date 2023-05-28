@@ -16,7 +16,7 @@ namespace eVoucherApi.Application.Commands
 
         public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var result = await _userService.CreateUser(request.UserDto);
+            var result = await _userService.UpdateUser(request.UserDto);
             return result;
         }
     }

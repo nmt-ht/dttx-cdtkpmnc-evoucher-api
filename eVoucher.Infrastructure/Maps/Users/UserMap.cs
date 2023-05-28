@@ -21,6 +21,12 @@ namespace eVoucher.Infrastructure.Maps
                    .KeyColumn("User_ID_FK")
                    .Inverse()
                    .Cascade.AllDeleteOrphan();
+
+            HasManyToMany<UserGroup>(x => x.UserGroups)
+             .Table("UserGroupLink")
+             .ParentKeyColumn("User_ID_FK")
+             .ChildKeyColumn("UserGroup_ID_FK")
+             .AsBag();
         }
     }
 }

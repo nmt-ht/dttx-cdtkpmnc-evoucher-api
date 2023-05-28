@@ -5,5 +5,6 @@ namespace eVoucher.Services.Api.Application.Queries
     public interface IUserQueries
     {
         Task<IList<UserDto>> GetUsers();
+        Task<IList<UserGroupDto>> GetUserGroups();
     }
 }

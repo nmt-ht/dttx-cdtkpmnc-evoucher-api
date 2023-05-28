@@ -152,7 +152,7 @@ namespace eVoucher.Server.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("User API_User Controller_UserLogin - Exception: " + ex.ToString());
+                _logger.LogError("User API_User Controller_EditAddress - Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
         }
@@ -172,7 +172,25 @@ namespace eVoucher.Server.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("User API_User Controller_UserLogin - Exception: " + ex.ToString());
+                _logger.LogError("User API_User Controller_DeleteAddress - Exception: " + ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpGet("usergroups")]
+        public async Task<ActionResult> GetUserGroups()
+        {
+            try
+            {
+                var userGroups = await _UserQueries.GetUserGroups();
+                if (userGroups.Any())
+                    return Ok(new APIResponseModel(true, 200, "Get User Groups successfully.", userGroups));
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("eVoucher API_Users Controller_GetUserGroups_Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
         }

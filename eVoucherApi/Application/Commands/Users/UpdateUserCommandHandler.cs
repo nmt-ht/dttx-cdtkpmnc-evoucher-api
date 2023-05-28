@@ -1,5 +1,4 @@
-﻿using eVoucher.Domain.Models;
-using eVoucher.Service.Dtos;
+﻿using eVoucher.Service.Dtos;
 using eVoucher.Service.Serivces;
 using MediatR;
 

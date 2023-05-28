@@ -10,5 +10,6 @@ namespace eVoucher.Service.Dtos
         public string City { get; set; }
         public string Country { get; set; }
         public eAddressType Type { get; set; }
+        public Guid UserId { get; set; }
     }
 }

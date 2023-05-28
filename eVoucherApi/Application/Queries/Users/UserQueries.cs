@@ -14,6 +14,21 @@ namespace eVoucher.Services.Api.Application.Queries
             _connectionString = connectionString;
         }
 
+        public async Task<IList<UserGroupDto>> GetUserGroups()
+        {
+            var userGroups = new List<UserGroupDto>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                var result = await connection.QueryAsync<UserGroupDto>(@"spr_eVoucherApi_GetUserGroups", commandType: CommandType.StoredProcedure);
+                userGroups = result.AsList();
+            }
+
+            return userGroups;
+        }
+
         public async Task<IList<UserDto>> GetUsers()
         {
             var users = new List<UserDto>();

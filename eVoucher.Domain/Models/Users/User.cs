@@ -13,5 +13,6 @@ namespace eVoucher.Domain.Models
         public virtual string? Password { get; set; }
         public virtual IList<Address>? Addresses { get; set; }
         public virtual bool IsActive { get; set; }
+        public virtual IList<UserGroup> UserGroups { get; set; }
     }
 }

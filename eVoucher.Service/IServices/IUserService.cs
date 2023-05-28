@@ -6,7 +6,7 @@ namespace eVoucher.Service.Serivces
     public interface IUserService
     {
         Task<UserDto> GetUserById(Guid id);
-        Task<UserDto> CreateUser(UserDto user);
+        //Task<UserDto> CreateUser(UserDto user);
         Task<UserDto> UpdateUser(UserDto UserDto);
         Task<bool> DeleteUser(Guid id);
         Task<UserDto> UserLogin(UserDto UserDto);
