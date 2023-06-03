@@ -5,17 +5,17 @@ namespace eVoucherApi.Application.Commands
 {
     public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand, bool>
     {
-        private readonly IUserService _userService;
+        private readonly IGameService _gameService;
 
-        public DeleteGameCommandHandler(IUserService userService)
+        public DeleteGameCommandHandler(IGameService gameService)
         {
-            _userService = userService;
+            _gameService = gameService;
         }
 
         public async Task<bool> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
         {
-            var result = await _userService.DeleteAddress(request.Id);
-            return result;
+            if (request is null) return false;
+            return await _gameService.DeleteGame(request.Id);
         }
     }
 }

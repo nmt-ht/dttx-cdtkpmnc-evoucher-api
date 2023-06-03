@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using eVoucher.Service.Dtos;
+using MediatR;
 
 namespace eVoucherApi.Application.Commands
 {

@@ -1,5 +1,4 @@
 ﻿using eVoucher.Domain.Models;
-using eVoucherApi.domain.Models;
 
 namespace eVoucher.Infrastructure.Maps
 {
@@ -14,6 +13,11 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.CreatedDate);
             Map(p => p.ModifiedDate);
             Map(p => p.IsDeleted);
+
+            HasMany(p => p.CampaignGames)
+                   .KeyColumn("Game_ID_FK")
+                   .Inverse()
+                   .Cascade.AllDeleteOrphan();
 
             References<User>(x => x.CreatedBy)
              .Column("CreatedBy");

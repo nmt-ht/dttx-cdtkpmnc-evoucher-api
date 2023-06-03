@@ -1,5 +1,4 @@
 ﻿using eVoucher.Domain.Models;
-using eVoucherApi.domain.Models;
 
 namespace eVoucher.Infrastructure.Maps
 {

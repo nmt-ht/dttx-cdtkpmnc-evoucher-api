@@ -3,7 +3,6 @@ using AutoMapper;
 using eVoucher.Domain.Models;
 using eVoucher.Infrastructure.Reposistories;
 using eVoucher.Service.Dtos;
-using eVoucherApi.domain.Models;
 
 namespace eVoucher.Service.Serivces
 {
@@ -60,7 +59,19 @@ namespace eVoucher.Service.Serivces
                         campaign.CreatedBy = createdBy;
                         campaign.ModifiedBy = modifiedBy;
                         campaign.ModifiedDate = DateTime.Now;
-                        _domainRepository.Update(campaign, true);
+                        foreach (CampaignGame campaignGame in campaign.CampaignGames)
+                        {
+                            campaignGame.Campaign = campaign;
+                        }
+
+                        var campaignGameIds = campaign.CampaignGames.Select(x => x.Id).ToList();
+                        var campaignGames = _domainRepository.Get<CampaignGame>(x => x.Campaign.Id == campaign.Id && !campaignGameIds.Contains(x.Id)).ToList();
+                        foreach (CampaignGame campaignGame in campaignGames)
+                        {
+                            _domainRepository.Remove(campaignGame);
+                        }
+
+                        _domainRepository.AddOrUpdate(campaign, true);
                         return true;
                     }// add
                     else
@@ -72,6 +83,11 @@ namespace eVoucher.Service.Serivces
                         campaign.CreatedDate = DateTime.Now;
                         campaign.ModifiedDate = DateTime.Now;
                         campaign.IsDeleted = false;
+
+                        foreach (CampaignGame campaignGame in campaign.CampaignGames)
+                        {
+                            campaignGame.Campaign = campaign;
+                        }
 
                         _domainRepository.Add(campaign, true);
                         return true;

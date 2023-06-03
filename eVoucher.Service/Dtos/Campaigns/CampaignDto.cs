@@ -1,4 +1,5 @@
-﻿namespace eVoucher.Service.Dtos
+﻿
+namespace eVoucher.Service.Dtos
 {
     public class CampaignDto
     {
@@ -12,5 +13,6 @@
         public Guid CreatedBy { get; set; }
         public Guid ModifiedBy { get; set; }
         public bool IsDeleted { get; set; }
+        public IList<CampaignGameDto> CampaignGames { get; set; }
     }
 }

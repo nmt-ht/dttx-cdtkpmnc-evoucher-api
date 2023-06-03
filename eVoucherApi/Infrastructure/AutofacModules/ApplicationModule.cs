@@ -20,6 +20,8 @@ namespace eVoucherApi.Infrastructure.AutofacModules
             builder.Register(c => new UserQueries(QueriesConnectionString)).As<IUserQueries>().InstancePerLifetimeScope();
             builder.Register(c => new CampaignQueries(QueriesConnectionString)).As<ICampaignQueries>().InstancePerLifetimeScope();
             builder.Register(c => new PartnerQueries(QueriesConnectionString)).As<IPartnerQueries>().InstancePerLifetimeScope();
+            builder.Register(c => new GameQueries(QueriesConnectionString)).As<IGameQueries>().InstancePerLifetimeScope();
+
 
             // Register Repositories 
             builder.RegisterType<RepositoryFactory>().As<IRepositoryFactory>().SingleInstance();
@@ -29,6 +31,7 @@ namespace eVoucherApi.Infrastructure.AutofacModules
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
             builder.RegisterType<CampaignService>().As<ICampaignService>().InstancePerLifetimeScope();
             builder.RegisterType<PartnerService>().As<IPartnerService>().InstancePerLifetimeScope();
+            builder.RegisterType<GameService>().As<IGameService>().InstancePerLifetimeScope();
         }
     }
 }
