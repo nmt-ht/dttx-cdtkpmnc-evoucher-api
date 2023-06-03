@@ -13,6 +13,7 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.CreatedDate);
             Map(p => p.ModifiedDate);
             Map(p => p.IsDeleted);
+            Map(p => p.Image).CustomSqlType("VARBINARY(MAX)").Length(int.MaxValue);
 
             HasMany(p => p.CampaignGames)
                    .KeyColumn("Game_ID_FK")

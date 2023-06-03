@@ -84,6 +84,13 @@ namespace eVoucher.Server.Controllers
         {
             try
             {
+                var commandCheckUser = new CheckUserCommand(userDto.EmailAddress);
+                var resultCheckUser = await _mediator.Send(commandCheckUser);
+                if(resultCheckUser)
+                {
+                    return Ok(new APIResponseModel(true, 200, "An account already exists for this email address. Please use other email address", null));
+                }    
+
                 var command = new CreateUserCommand(userDto);
                 var result = await _mediator.Send(command);
                 if(result is not null)

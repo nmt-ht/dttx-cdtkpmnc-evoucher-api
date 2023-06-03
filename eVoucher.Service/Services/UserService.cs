@@ -193,5 +193,23 @@ namespace eVoucher.Service.Serivces
                 throw ex;
             }
         }
+
+        public async Task<bool> CheckUser(string email)
+        {
+            try
+            {
+                var user = _domainRepository.GetOne<User>(u => u.EmailAddress == email);
+
+                if (user is not null)  
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

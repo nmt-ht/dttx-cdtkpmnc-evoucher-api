@@ -15,6 +15,7 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.ExpiredDate);
             Map(p => p.ModifiedDate);
             Map(p => p.IsDeleted);
+            Map(p => p.Image).CustomSqlType("VARBINARY(MAX)").Length(int.MaxValue);
             HasMany(p => p.CampaignGames)
                    .KeyColumn("Campaign_ID_FK")
                    .Inverse()

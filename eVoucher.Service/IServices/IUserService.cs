@@ -12,5 +12,6 @@ namespace eVoucher.Service.Serivces
         Task<UserDto> UserLogin(UserDto UserDto);
         Task<bool> EditAddress(AddressDto addressDto);
         Task<bool> DeleteAddress(Guid id);
+        Task<bool> CheckUser(string email);
     }
 }
