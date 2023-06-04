@@ -20,6 +20,10 @@ namespace eVoucher.Infrastructure.Maps
                    .KeyColumn("Campaign_ID_FK")
                    .Inverse()
                    .Cascade.AllDeleteOrphan();
+            HasMany(p => p.PartnerCampaigns)
+                   .KeyColumn("Campaign_ID_FK")
+                   .Inverse()
+                   .Cascade.AllDeleteOrphan();
 
             References<User>(x => x.CreatedBy)
                 .Column("CreatedBy");

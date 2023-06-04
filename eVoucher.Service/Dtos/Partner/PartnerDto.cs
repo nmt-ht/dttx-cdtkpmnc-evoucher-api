@@ -16,5 +16,6 @@ namespace eVoucher.Service.Dtos
         public ePartnerType Type { get; set; }
         public bool IsActive { get; set; }
         public Guid User_ID_FK { get; set; }
+        public IList<PartnerCampaignDto> PartnerCampaigns { get; set; } = new List<PartnerCampaignDto>();
     }
 }

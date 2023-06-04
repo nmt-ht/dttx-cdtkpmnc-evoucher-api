@@ -14,5 +14,6 @@ namespace eVoucher.Domain.Models
         public virtual ePartnerType Type { get; set; }
         public virtual bool IsActive { get; set; }
         public virtual User User { get; set; }
+        public virtual IList<PartnerCampaign> PartnerCampaigns { get; set; }
     }
 }

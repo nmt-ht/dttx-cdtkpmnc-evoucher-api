@@ -48,8 +48,9 @@ namespace eVoucher.Service.AutoMappings
             CreateMap<Campaign, CampaignDto>()
                 .ForMember(dto => dto.ModifiedBy, opt => opt.MapFrom(e => e.ModifiedBy != null ? e.ModifiedBy.Id : Guid.Empty))
                 .ForMember(dto => dto.CreatedBy, opt => opt.MapFrom(e => e.CreatedBy != null ? e.CreatedBy.Id : Guid.Empty));
-            CreateMap<Partner, PartnerDto>();
-            
+            CreateMap<Partner, PartnerDto>()
+                .ForMember(dto => dto.User_ID_FK, opt => opt.MapFrom(e => e.User != null ? e.User.Id : Guid.Empty));
+
             CreateMap<CampaignDto, Campaign>()
                 .ForMember(dto => dto.ModifiedBy, opt => opt.Ignore())
                 .ForMember(dto => dto.CreatedBy, opt => opt.Ignore());
@@ -65,6 +66,8 @@ namespace eVoucher.Service.AutoMappings
 
             CreateMap<CampaignGame, CampaignGameDto>();
             CreateMap<CampaignGameDto, CampaignGame>();
+            CreateMap<PartnerCampaign, PartnerCampaignDto>();
+            CreateMap<PartnerCampaignDto, PartnerCampaign>();
 
         }
     }

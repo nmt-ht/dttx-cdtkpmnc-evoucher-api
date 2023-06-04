@@ -14,6 +14,6 @@ namespace eVoucher.Service.Dtos
         public Guid ModifiedBy { get; set; }
         public bool IsDeleted { get; set; }
         public byte[]? Image { get; set; }
-        public IList<CampaignGameDto> CampaignGames { get; set; }
+        public IList<CampaignGameDto>? CampaignGames { get; set; }
     }
 }

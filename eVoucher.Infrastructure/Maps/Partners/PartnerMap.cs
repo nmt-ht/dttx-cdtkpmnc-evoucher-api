@@ -17,6 +17,11 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.Type).CustomType<int>();
             Map(p => p.IsActive);
 
+            HasMany(p => p.PartnerCampaigns)
+                   .KeyColumn("Partner_ID_FK")
+                   .Inverse()
+                   .Cascade.AllDeleteOrphan();
+
             References<User>(x => x.User)
                .Column("User_ID_FK");
         }

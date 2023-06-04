@@ -54,6 +54,18 @@ namespace eVoucher.Service.Serivces
                     {
                         var partner = _mapper.Map<PartnerDto, Partner>(partnerDto);
                         partner.User = _domainRepository.GetOne<User>(u => u.Id == partnerDto.User_ID_FK);
+
+                        foreach (PartnerCampaign partnerCampaign in partner.PartnerCampaigns)
+                        {
+                            partnerCampaign.Partner = partner;
+                        }
+
+                        var partnerCampaignIds = partner.PartnerCampaigns.Select(x => x.Id).ToList();
+                        var partnerCampaigns = _domainRepository.Get<PartnerCampaign>(x => x.Partner.Id == partner.Id && !partnerCampaignIds.Contains(x.Id)).ToList();
+                        foreach (PartnerCampaign item in partnerCampaigns)
+                        {
+                            _domainRepository.Remove(item);
+                        }
                         _domainRepository.Update(partner, true);
                         return true;
                     }// add
@@ -61,6 +73,10 @@ namespace eVoucher.Service.Serivces
                     {
                         var partner = _mapper.Map<Partner>(partnerDto);
                         partner.User = _domainRepository.GetOne<User>(u => u.Id == partnerDto.User_ID_FK);
+                        foreach (PartnerCampaign partnerCampaign in partner.PartnerCampaigns)
+                        {
+                            partnerCampaign.Partner = partner;
+                        }
                         _domainRepository.Add(partner, true);
                         return true;
                     }

@@ -15,5 +15,6 @@ namespace eVoucher.Domain.Models
         public virtual bool IsDeleted { get; set; }
         public virtual byte[]? Image { get; set; }
         public virtual IList<CampaignGame> CampaignGames { get; set; }
+        public virtual IList<PartnerCampaign> PartnerCampaigns { get; set; }
     }
 }
