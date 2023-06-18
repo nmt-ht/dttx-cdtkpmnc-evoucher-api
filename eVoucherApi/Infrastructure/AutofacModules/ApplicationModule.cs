@@ -21,6 +21,7 @@ namespace eVoucherApi.Infrastructure.AutofacModules
             builder.Register(c => new CampaignQueries(QueriesConnectionString)).As<ICampaignQueries>().InstancePerLifetimeScope();
             builder.Register(c => new PartnerQueries(QueriesConnectionString)).As<IPartnerQueries>().InstancePerLifetimeScope();
             builder.Register(c => new GameQueries(QueriesConnectionString)).As<IGameQueries>().InstancePerLifetimeScope();
+            builder.Register(c => new ReportQueries(QueriesConnectionString)).As<IReportQueries>().InstancePerLifetimeScope();
 
 
             // Register Repositories 
