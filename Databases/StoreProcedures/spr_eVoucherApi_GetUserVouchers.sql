@@ -23,10 +23,10 @@ BEGIN
 
 	DECLARE @EmptyGuid UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000'
 
-	SELECT v.Code VoucherCode, v.CreatedDate ReceivedDate, v.ExpiredDate, g.Name GameName, c.Name CampaignName
+	SELECT v.Code VoucherCode, v.CreatedDate ReceivedDate, v.ExpiredDate, g.Name GameName--, c.Name CampaignName
 	FROM [User] u
-	JOIN CampaignUser cu ON cu.User_ID_FK = u.ID
-	JOIN Campaign c ON c.ID = cu.Campaign_ID_FK
+	--JOIN CampaignUser cu ON cu.User_ID_FK = u.ID
+	--JOIN Campaign c ON c.ID = cu.Campaign_ID_FK
 	JOIN Voucher v ON v.User_ID_FK = u.ID
 	JOIN Game g ON g.ID = v.Game_ID_FK
 	WHERE U.ID = @CurrentUserID
