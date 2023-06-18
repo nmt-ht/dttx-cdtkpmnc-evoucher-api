@@ -240,3 +240,21 @@ CREATE TABLE [dbo].[VoucherUsed](
 )
 
 GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE VoucherCampaignUser
+(
+	[ID] [uniqueidentifier] NOT NULL,
+	Voucher_ID_FK [uniqueidentifier] NULL,
+	Campaign_ID_FK [uniqueidentifier] null,
+	User_ID_FK [uniqueidentifier] null,
+	PRIMARY KEY (ID),
+	CONSTRAINT FK_VoucherCampaignUser_Campaign FOREIGN KEY (Campaign_ID_FK)
+	REFERENCES [Campaign](ID),
+	CONSTRAINT FK_VoucherCampaignUser_User FOREIGN KEY (User_ID_FK)
+    REFERENCES [User](ID),
+	CONSTRAINT FK_VoucherCampaignUser_Voucher FOREIGN KEY (Voucher_ID_FK)
+    REFERENCES [Voucher](ID)
+)

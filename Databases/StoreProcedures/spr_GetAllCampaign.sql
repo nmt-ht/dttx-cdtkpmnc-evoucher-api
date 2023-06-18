@@ -1,25 +1,34 @@
-CREATE PROC  [dbo].[spr_GetAllCampaign] 
-(
-	@CreatedDateFrom smalldatetime=NULL,
-	@CreatedDateTo smalldatetime=NULL,
-	@PartnerID UNIQUEIDENTIFIER=NULL
+IF EXISTS (
+       SELECT *
+       FROM   dbo.sysobjects
+       WHERE  ID = OBJECT_ID(N'[dbo].[spr_eVoucherApi_Report_GetCampaigns]')
+              AND OBJECTPROPERTY(id, N'IsProcedure') = 1
+   )
+    DROP PROCEDURE [dbo].[spr_eVoucherApi_Report_GetCampaigns]
+GO
+/*
+	Created By		:	Tu Nguyen
+	Created Date	:	Apr 28, 2023
+	Description		:	Get Users
 
+*/
+CREATE PROCEDURE [dbo].[spr_eVoucherApi_Report_GetCampaigns]
+(
+	@CreatedDateFrom DATETIME = NULL,
+	@CreatedDateTo DATETIME = NULL
 )
 AS
 BEGIN
 	SET NOCOUNT ON
 	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 	
-	SELECT c.ID, c.Name, c.[Description], c.CreatedDate, c.StartedDate, c.ExpiredDate,
-		   c.ModifiedDate, c.CreatedBy, c.ModifiedBy, c.IsDeleted,c.Image,pc.Partner_ID_FK
+	SELECT c.CreatedDate, COUNT(1) TotalCampaign
 	FROM Campaign c
-	LEFT JOIN PartnerCampaign pc ON pc.Campaign_ID_FK = c.ID
-	WHERE c.CreatedDate >= @CreatedDateFrom AND c.CreatedDate <=@CreatedDateTo AND pc.Partner_ID_FK=@PartnerID
-	
+	WHERE 
+		(@CreatedDateFrom IS NULL OR c.CreatedDate >= @CreatedDateFrom)
+		AND 
+		(@CreatedDateTo IS NULL OR c.CreatedDate <= @CreatedDateTo)
+	GROUP BY c.CreatedDate
+		
 	SET NOCOUNT OFF
 END
-
-
-
-
-

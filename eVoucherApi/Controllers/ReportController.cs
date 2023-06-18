@@ -20,12 +20,12 @@ namespace eVoucherApi.Server.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetAllCampaigns()
+        [HttpPost("get-total-of-campaign-by-date")]
+        public async Task<ActionResult> GetTotalOfCampaignByDate([FromBody] ReportCampaignRequest reportCampaignRequest)
         {
             try
             {
-                var reports = await _ReportQueries.GetAllCampaigns();
+                var reports = await _ReportQueries.GetTotalOfCampaignByDate(reportCampaignRequest);
                 if (reports.Any())
                     return Ok(new APIResponseModel(true, 200, "Get All Campaigns successfully.", reports));
 
@@ -36,7 +36,24 @@ namespace eVoucherApi.Server.Controllers
                 _logger.LogError("eVoucher API_Users Controller_Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
-        }       
-        
+        }
+
+        [HttpGet("get-total-of-vouchers")]
+        public async Task<ActionResult> GetTotalOfVouchers()
+        {
+            try
+            {
+                var reports = await _ReportQueries.GetTotalOfVouchers();
+                if (reports.Any())
+                    return Ok(new APIResponseModel(true, 200, "Get All Campaigns successfully.", reports));
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("eVoucher API_Users Controller_Exception: " + ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+            }
+        }
     }
 }
