@@ -1,6 +1,9 @@
-﻿-- Campaign
+﻿DELETE FROM CampaignGame
+DELETE FROM Game
+DELETE FROM Campaign
+
+-- Campaign
 declare @User UNIQUEIDENTIFIER = (select top 1 ID from [user] WHERE UserName = 'Admin')
-select *  from Campaign where CreatedBy<>@User
 
 insert into Campaign (ID, Name, Description,CreatedDate,StartedDate,ExpiredDate,ModifiedDate, CreatedBy,ModifiedBy,IsDeleted)
 values (NEWID(),N'Freeship 20.000',N'Ăn uống thả ga, FreeShip tới 20.000', GETDATE(),GETDATE(),GETDATE(),GETDATE(),@User,@User,0),
@@ -15,7 +18,6 @@ values (NEWID(),N'Freeship 20.000',N'Ăn uống thả ga, FreeShip tới 20.000'
 (NEWID(),N'FreeShip tới 35.000đ',N'FreeShip tới 35.000đ', GETDATE(),GETDATE(),GETDATE(),GETDATE(),@User,@User,0)
 
 -- Game
-declare @User UNIQUEIDENTIFIER = (select top 1 ID from [user] WHERE UserName = 'Admin')
 insert into Game(ID,Name,Description,CreatedDate,ModifiedDate,CreatedBy,ModifiedBy,IsDeleted)
 values (NEWID(),'Teris','Teris',GETDATE(),GETDATE(),@User,@User,0),
 		(NEWID(),'TicTacToe','Tic Tac Toe',GETDATE(),GETDATE(),@User,@User,0),

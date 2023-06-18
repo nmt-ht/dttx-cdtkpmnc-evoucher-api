@@ -1,4 +1,5 @@
-﻿using eVoucher.Service.Dtos;
+﻿using eVoucher.Domain.Models;
+using eVoucher.Service.Dtos;
 using eVoucher.Services.Api.Application.Queries;
 using eVoucherApi.Application.Commands;
 using eVoucherApi.Models;
@@ -107,6 +108,23 @@ namespace eVoucherApi.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("Game API_Game Controller_DeleteGame - Exception: " + ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpPost("voucher/create")]
+        public async Task<ActionResult> CreateVoucher([FromBody] VoucherDto voucherDto)
+        {
+            try
+            {
+                var command = new CreateVoucherCammand(voucherDto);
+                var result = await _mediator.Send(command);
+
+                return Ok(new APIResponseModel(true, 200, "Create Voucher successfully.", result));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Game API_Game Controller_CreateVoucher - Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
         }

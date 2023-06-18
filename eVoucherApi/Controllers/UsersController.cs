@@ -12,13 +12,13 @@ namespace eVoucher.Server.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ILogger<UsersController> _logger;
-        private IUserQueries _UserQueries;
+        private IUserQueries _userQueries;
         private readonly IMediator _mediator;
 
-        public UsersController(ILogger<UsersController> logger, IUserQueries UserQueries, IMediator mediator)
+        public UsersController(ILogger<UsersController> logger, IUserQueries userQueries, IMediator mediator)
         {
             _logger = logger;
-            _UserQueries = UserQueries;
+            _userQueries = userQueries;
             _mediator = mediator;
         }
 
@@ -27,7 +27,7 @@ namespace eVoucher.Server.Controllers
         {
             try
             {
-                var users = await _UserQueries.GetUsers();
+                var users = await _userQueries.GetUsers();
                 if (users.Any())
                     return Ok(new APIResponseModel(true, 200, "Get Users successfully.", users));
 
@@ -189,7 +189,7 @@ namespace eVoucher.Server.Controllers
         {
             try
             {
-                var userGroups = await _UserQueries.GetUserGroups();
+                var userGroups = await _userQueries.GetUserGroups();
                 if (userGroups.Any())
                     return Ok(new APIResponseModel(true, 200, "Get User Groups successfully.", userGroups));
 
@@ -198,6 +198,24 @@ namespace eVoucher.Server.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("eVoucher API_Users Controller_GetUserGroups_Exception: " + ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+            }
+        }
+
+        [HttpGet("vouchers/{currentUserID}")]
+        public async Task<ActionResult> GetUserVouchers(Guid currentUserID)
+        {
+            try
+            {
+                var users = await _userQueries.GetUserVouchers(currentUserID);
+                if (users.Any())
+                    return Ok(new APIResponseModel(true, 200, "Get Users Vouchers successfully.", users));
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("eVoucher API_Users Controller_Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
         }

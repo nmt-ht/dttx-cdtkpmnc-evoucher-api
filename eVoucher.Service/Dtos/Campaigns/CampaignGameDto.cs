@@ -1,6 +1,4 @@
-﻿using eVoucher.Domain.Models;
-
-namespace eVoucher.Service.Dtos
+﻿namespace eVoucher.Service.Dtos
 {
     public class CampaignGameDto
     {

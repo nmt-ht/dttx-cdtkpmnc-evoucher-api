@@ -6,5 +6,6 @@ namespace eVoucher.Services.Api.Application.Queries
     {
         Task<IList<UserDto>> GetUsers();
         Task<IList<UserGroupDto>> GetUserGroups();
+        Task<IList<UserVoucherDto>> GetUserVouchers(Guid currentUserId);
     }
 }

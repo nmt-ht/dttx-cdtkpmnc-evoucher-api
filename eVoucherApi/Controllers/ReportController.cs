@@ -1,7 +1,4 @@
-﻿using eVoucher.Server.Controllers;
-using eVoucher.Service.Dtos;
-using eVoucher.Services.Api.Application.Queries;
-using eVoucherApi.Application.Commands;
+﻿using eVoucher.Services.Api.Application.Queries;
 using eVoucherApi.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

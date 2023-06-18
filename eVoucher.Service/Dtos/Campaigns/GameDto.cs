@@ -12,5 +12,6 @@
         public bool IsDeleted { get; set; }
         public int Index { get; set; }
         public byte[]? Image { get; set; }
+        public Guid CampaignID { get; set; }    
     }
 }

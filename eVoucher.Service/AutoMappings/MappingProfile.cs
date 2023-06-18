@@ -64,6 +64,14 @@ namespace eVoucher.Service.AutoMappings
                 .ForMember(dto => dto.ModifiedBy, opt => opt.Ignore())
                 .ForMember(dto => dto.CreatedBy, opt => opt.Ignore());
 
+            CreateMap<VoucherDto, Voucher>()
+                .ForMember(dto => dto.Game, opt => opt.Ignore())
+                .ForMember(dto => dto.User, opt => opt.Ignore())
+                .AfterMap((e, dto) =>
+                {
+                    e.IsActive = true;
+                });
+
             CreateMap<CampaignGame, CampaignGameDto>();
             CreateMap<CampaignGameDto, CampaignGame>();
             CreateMap<PartnerCampaign, PartnerCampaignDto>();

@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using eVoucher.Service.Dtos;
-using eVoucherApi.Models;
 using System.Data;
 using System.Data.SqlClient;
 

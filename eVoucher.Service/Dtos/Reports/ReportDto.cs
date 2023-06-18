@@ -1,7 +1,4 @@
-﻿using eVoucher.Domain.Models;
-using static eVoucher.Domain.Models.DataType;
-
-namespace eVoucher.Service.Dtos
+﻿namespace eVoucher.Service.Dtos
 {
     public class ReportDto
     {
@@ -17,7 +14,5 @@ namespace eVoucher.Service.Dtos
         public bool IsDeleted { get; set; }
         public byte[]? Image { get; set; }
         public PartnerDto Partner { get; set; }
-         
-
     }
 }

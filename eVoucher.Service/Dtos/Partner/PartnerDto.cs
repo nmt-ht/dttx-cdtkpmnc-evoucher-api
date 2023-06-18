@@ -10,7 +10,7 @@ namespace eVoucher.Service.Dtos
         public string Description { get; set; } = string.Empty;
         public string CompanyEmailAddress { get; set; } = string.Empty;
         public string CompanyPhone { get; set; } = string.Empty;
-        public IList<Address>? CompanyAddess { get; set; } = new List<Address>();
+        public IList<AddressDto>? CompanyAddess { get; set; } = new List<AddressDto>();
         public byte[]? Image { get; set; }
         public DateTime JoinDate { get; set; } = DateTime.MinValue;
         public ePartnerType Type { get; set; }

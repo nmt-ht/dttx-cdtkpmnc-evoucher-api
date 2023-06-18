@@ -202,12 +202,13 @@ SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[Voucher](
 	[ID] [uniqueidentifier] NOT NULL,
-	[Name] [varchar](100) NULL,
+	[Name] [nvarchar](300) NULL,
 	[Code] [varchar](100) NULL,
 	[CreatedDate] [datetime] NULL,
 	[AppliedDate] [datetime] NULL,
 	[ExpiredDate] [datetime] NULL,
 	[Game_ID_FK] [uniqueidentifier] NULL,
+	[User_ID_FK] [uniqueidentifier] NULL,
 	[Type] [tinyint] NULL,
 	[LimitAmount] [money] NULL,
 	[Quantity] [int] NULL,
@@ -215,6 +216,8 @@ CREATE TABLE [dbo].[Voucher](
 	PRIMARY KEY (ID),
     CONSTRAINT FK_VoucherGame FOREIGN KEY (Game_ID_FK)
     REFERENCES [Game](ID),
+	CONSTRAINT FK_VoucherUser FOREIGN KEY (User_ID_FK)
+    REFERENCES [User](ID),
 )
 
 GO

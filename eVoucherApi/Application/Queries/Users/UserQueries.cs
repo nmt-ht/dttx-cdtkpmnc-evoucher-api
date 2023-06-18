@@ -43,5 +43,22 @@ namespace eVoucher.Services.Api.Application.Queries
 
             return users;
         }
+
+        public async Task<IList<UserVoucherDto>> GetUserVouchers(Guid currentUserId)
+        {
+            var users = new List<UserVoucherDto>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var parametters = new DynamicParameters();
+                parametters.Add("@CurrentUserID", currentUserId);
+
+                var result = await connection.QueryAsync<UserVoucherDto>(@"spr_eVoucherApi_GetUserVouchers", parametters, commandType: CommandType.StoredProcedure);
+                users = result.AsList();
+            }
+
+            return users;
+        }
     }
 }

@@ -2,7 +2,6 @@
 using eVoucher.Domain.Models;
 using eVoucher.Infrastructure.Reposistories;
 using eVoucher.Service.Dtos;
-using eVoucher.Domain.Models;
 
 namespace eVoucher.Service.Serivces
 {
@@ -74,6 +73,23 @@ namespace eVoucher.Service.Serivces
             {
                 throw ex;
             }
+        }
+
+        public async Task<bool> CreateVoucher(VoucherDto voucherDto)
+        {
+            try
+            {
+                var voucher = _mapper.Map<Voucher>(voucherDto);
+                voucher.Game = _domainRepository.GetOne<Game>(g => g.Id == voucherDto.Game_ID_FK);
+                voucher.User = _domainRepository.GetOne<User>(u => u.Id == voucherDto.User_ID_FK);
+                _domainRepository.AddOrUpdate(voucher, true);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return false;
         }
     }
 }

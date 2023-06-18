@@ -1,6 +1,7 @@
 ﻿using eVoucher.Service.Dtos;
 using eVoucher.Services.Api.Application.Queries;
 using eVoucherApi.Application.Commands;
+using eVoucherApi.Application.Commands.Campaigns;
 using eVoucherApi.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -113,6 +114,26 @@ namespace eVoucherApi.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("Campaign API_Campaign Controller_DeleteCampaign - Exception: " + ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
+            }
+
+            return NoContent();
+        }
+
+        [HttpPost("user/update")]
+        public async Task<ActionResult> UpdateCampaignUser([FromBody] CampaignUserDto campaignUserDto)
+        {
+            try
+            {
+                var command = new CreateCampaignUserCammand(campaignUserDto);
+                var result = await _mediator.Send(command);
+
+                if (result)
+                    return Ok(new APIResponseModel(true, 200, "Update Campaign User successfully.", result));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Campaign API_Campaign Controller_UpdateCampaignUser - Exception: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.ToString());
             }
 

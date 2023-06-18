@@ -1,8 +1,8 @@
-﻿using Antlr.Runtime;
-using AutoMapper;
+﻿using AutoMapper;
 using eVoucher.Domain.Models;
 using eVoucher.Infrastructure.Reposistories;
 using eVoucher.Service.Dtos;
+using eVoucherApi.Domain.Models;
 
 namespace eVoucher.Service.Serivces
 {
@@ -132,6 +132,20 @@ namespace eVoucher.Service.Serivces
             {
                 throw ex;
             }
+        }
+
+        public async Task<bool> UpdateCampaignUser(CampaignUserDto campaignUserDto)
+        {
+            var createdBy = _domainRepository.GetOne<User>(u => u.Id == campaignUserDto.UserId);
+            var campain = _domainRepository.GetOne<Campaign>(g => g.Id == campaignUserDto.CampaignId);
+            
+            var campaignUser = new CampaignUser();
+            campaignUser.Campaign = campain;
+            campaignUser.User = createdBy;
+            campaignUser.JoinDate = DateTime.Now;
+
+            _domainRepository.Add(campaignUser, true);
+            return true;
         }
     } 
 }

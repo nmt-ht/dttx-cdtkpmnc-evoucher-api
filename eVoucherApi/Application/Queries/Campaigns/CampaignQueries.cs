@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using eVoucher.Service.Dtos;
-using eVoucherApi.Models;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -24,8 +23,40 @@ public class CampaignQueries: ICampaignQueries
 
             var parameters = new DynamicParameters();
 
-            var result = await connection.QueryAsync<CampaignDto>(@"spr_eVoucherApi_GetCampaigns", commandType: CommandType.StoredProcedure);
-            campaigns = result.AsList<CampaignDto>();
+            var result = await connection.QueryMultipleAsync(@"spr_eVoucherApi_GetCampaigns", commandType: CommandType.StoredProcedure);
+            campaigns = result.Read<CampaignDto>().AsList();
+            var partners = result.Read<PartnerDto>().AsList();
+            var addressDtos = result.Read<AddressDto>().AsList();
+            var games = result.Read<GameDto>().AsList();
+
+            if(campaigns is not null && campaigns.Any())
+            {
+                foreach(var campaign in campaigns) 
+                { 
+                    foreach(var partner in partners)
+                    {
+                        if(partner.Id == campaign.PartnerId)
+                        {
+                            foreach(var address in addressDtos)
+                            {
+                                if(address.UserId == partner.User_ID_FK)
+                                {
+                                    partner.CompanyAddess.Add(address);
+                                }
+                            }
+                            campaign.Partners.Add(partner);
+                        }
+                    }
+
+                    foreach (var game in games)
+                    {
+                        if(game.CampaignID == campaign.Id)
+                        {
+                            campaign.Games.Add(game);
+                        }
+                    }
+                }
+            }
         }
 
         return campaigns;

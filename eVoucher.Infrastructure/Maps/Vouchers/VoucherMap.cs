@@ -17,6 +17,9 @@ namespace eVoucher.Infrastructure.Maps
             Map(p => p.LimitAmount);
             Map(p => p.Quantity);
             Map(p => p.IsActive);
+
+            References(v => v.Game, "Game_ID_FK");
+            References(v => v.User, "User_ID_FK");
         }
     }
 }

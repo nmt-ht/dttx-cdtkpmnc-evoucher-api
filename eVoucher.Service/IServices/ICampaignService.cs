@@ -1,5 +1,4 @@
-﻿using eVoucher.Domain.Models;
-using eVoucher.Service.Dtos;
+﻿using eVoucher.Service.Dtos;
 
 namespace eVoucher.Service.Serivces
 {
@@ -10,6 +9,6 @@ namespace eVoucher.Service.Serivces
         Task<bool> DeleteCampaign(Guid id);
         Task<bool> EditGame(GameDto gameDto);
         Task<bool> DeleteGame(Guid id);
-
+        Task<bool> UpdateCampaignUser(CampaignUserDto campaignGameDto);
     }
 }
